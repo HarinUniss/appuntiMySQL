@@ -25,7 +25,7 @@ CLIENT-SERVER
 	La maggior parte dei DBMS sono basati su un modello client-server. Vale a dire, il database si trova su un server che viene utilizzato solo per questo, e per interagire con questo database, è necessario utilizzare un software "client" che interroga il server e trasmetterà la risposta che il server gli avrà dato.	
 
 
-SGBDR (R sta per "Relazionale")
+SGBDR (R sta per "Relazionale") (detto anche RDBMS)
 	É un Sistema di Gestione Basi Dati implementa la teoria relazionale.
 
 	i dati sono contenuti in quelle che vengono chiamate relazioni,che sono rappresentate come tabelle.
@@ -90,6 +90,90 @@ SGBDR (R sta per "Relazionale")
 
 				DA NOTARE CHE 
 				la tabella ORDINI ha una colonna che contiene il numero corrispondente al cliente nella tabella CLIENTI 
+
+
+
+
+SQL
+	creato nel 1970 ed è diventato standard nel 1986
+	SQL (Structured Query Language) è un linguaggio informatico che consente di interagire con database relazionali.
+
+	Poiché MySQL è un RDBMS, parleremo solo dell'organizzazione dei database relazionali.
+
+
+ORGANIZZAZIONE DI UN DATABASE
+	i dati verranno rappresentati sotto forma di tabelle.
+
+	Un database conterrà quindi diverse tabelle (può contenerne solo una, ovviamente, ma questo è raramente il caso).
+
+	Ogni tabella definisce un numero di colonne,che sono le caratteristiche dell'oggetto rappresentato dalla tabella (gli ATTRIBUTI dell'intestazione in teoria relazionale). 
+
+-----------------------------------------------------------------------------------------------------
+RIASSUMENDO 
+
+	Se riassumo, in un database, abbiamo tabelle, e in quelle tabelle,abbiamo colonne. 
+	In queste tabelle, inserisci i tuoi dati. 
+	Ogni dato inserito avrà la forma di una riga in una tabella, definendo il valore di ogni colonna per questi dati.
+
+	MySQL è un Relational Database Management System (RDBMS) basato sul modello client-server.
+
+	In un database relazionale, i dati sono rappresentati come tabelle.
+
+	SQL viene utilizzato per la comunicazione tra il client e il server.
+
+----------------------------------------------------------------------------------------------------
+QUESTA PARTE SI PUO SALTARE!!!!!!!!!!!!!!!!
+
+UN PO DI STORIA 
+
+	Il logo MySQL è un delfino, chiamato Sakila come risultato del concorso Name the dolphin.
+
+	Lo sviluppo di MySQL è iniziato nel 1994 da David Axmark e Michael Widenius. Nel 1995, MySQL AB è stata fondata da questi due sviluppatori e Allan Larsson. Questo è lo stesso anno in cui viene rilasciata la prima versione ufficiale di MySQL.
+
+	Nel 2008, MySQL AB è stata acquisita da Sun Microsystems, che è stata a sua volta acquisita da Oracle Corporation nel 2010.
+	Temiamo quindi la fine di MySQL gratuito, dato che Oracle Corporation pubblica uno dei principali concorrenti di mySQL: Oracle Database, che è pagato (e molto costoso). Oracle ha promesso, tuttavia, di continuare a sviluppare MySQL e di mantenere la doppia GPL (libera) e la licenza commerciale almeno fino al 2015. Fino ad oggi, entrambe le licenze esistono ancora.
+
+
+AVVERTIMENTO
+	MySQL è ampiamente utilizzato, soprattutto dai principianti. Sarai in grado di fare molte cose con questo software ed è abbastanza adatto per scoprire la gestione del database. Tieni presente, tuttavia, che MySQL è tutt'altro che perfetto. In effetti, non sempre segue lo standard ufficiale. Alcune sintassi potrebbero quindi essere specifiche di MySQL e potrebbero non funzionare con altri RDBMS. Cercherò di sottolinearlo quando si presenterà il caso, ma sii consapevole di questo problema.
+	Inoltre, non implementa alcune funzionalità avanzate che potrebbero essere utili per un progetto anche un po 'ambizioso. Infine, è molto permissivo e quindi accetterà richieste che genererebbero un errore sotto altri RDBMS.
+
+
+CONCORRENTI 	
+
+
+	Oracle Database
+		Oracle, pubblicato da Oracle Corporation (che, ricordo, pubblica anche MySQL) è un RDBMS a pagamento. Il suo alto costo significa che è utilizzato principalmente dalle aziende.
+		Oracle gestisce molto bene grandi volumi di dati. Non è necessario acquistare una licenza oracle per un piccolo progetto, in quanto le prestazioni non saranno molto diverse da quelle di MySQL o di un altro RDBMS. D'altra parte, per progetti di grandi dimensioni (diverse centinaia di GB di dati), Oracle sarà molto più efficiente.
+		Inoltre, Oracle ha un linguaggio procedurale molto potente (almeno più potente del linguaggio procedurale di MySQL): PL / SQL.
+
+
+	PostgreSQL
+		Come MySQL, PostgreSQL è un software open source. Tuttavia, è meno utilizzato, soprattutto dai principianti, perché è meno conosciuto. Parte della ragione di questa mancanza di conoscenza è che PostgreSQL è stato a lungo disponibile solo su Unix. La prima versione di Windows non è apparsa fino al rilascio della versione 8.0 del software, nel 2005.
+		PostgreSQL è stato a lungo migliore di MySQL, ma queste differenze tendono a diminuire. MySQL sembra essere equivalente a PostgreSQL oggi in termini di prestazioni, ad eccezione di alcune operazioni come l'inserimento di dati e la creazione di indici.
+		Il linguaggio procedurale utilizzato da PostgreSQL si chiama PL/pgSQL.
+
+	Accesso MS
+		MS Access o Microsoft Access è un software pubblicato da Microsoft (come suggerisce il nome...). Pertanto, è un software a pagamento che funziona solo su Windows. Non è affatto adatto per la gestione di un grande volume di dati e ha molte meno funzionalità rispetto ad altri RDBMS. Il suo principale vantaggio è l'interfaccia grafica intuitiva del software.
+
+	SQLite
+		La particolarità di SQLite è che non utilizza lo schema client-server utilizzato dalla maggior parte degli RDBMS. SQLite memorizza tutti i dati in file semplici. Pertanto, non è necessario installare un server di database, il che non è sempre possibile (alcuni host web non lo consentono).
+		Per volumi di dati molto piccoli, SQLite è molto efficiente. Tuttavia, il fatto che le informazioni siano semplicemente memorizzate in file rende il sistema difficile da proteggere (sia a livello di accesso, sia a livello di gestione di più utenti che utilizzano il database contemporaneamente).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

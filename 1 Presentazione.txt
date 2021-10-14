@@ -1,0 +1,13 @@
+BASE DATI 
+
+è un insieme di dati che è stato memorizzato su un supporto informatico, organizzato e strutturato in modo tale da poter facilmente consultarne e modificarne il contenuto.
+
+
+È necessario essere in grado di inviare messaggi a MySQL (messaggi che saranno chiamati "query")per poter aggiungere notizie, modificare informazioni sui membri, eliminare e semplicemente visualizzare elementi del database.
+
+
+Un database da solo non è quindi sufficiente, è necessario avere anche:
+
+	un sistema per gestire questo database;
+
+	una lingua per la trasmissione di istruzioni al database (attraverso il sistema di gestione).

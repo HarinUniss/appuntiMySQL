@@ -1,0 +1,106 @@
+
+Il comando per lanciare il cliente è semplicemente il suo nome:
+
+mysql
+
+Tuttavia, questo non è abbastanza. 
+È inoltre necessario specificare un numero di parametri. Il client mysql ha bisogno di almeno tre parametri:
+
+		-l'host: cioè il luogo in cui si trova il server.
+
+		-il nome utente;
+
+		-la password dell'utente.
+
+
+		L'host e l'utente hanno valori predefiniti, quindi non sono sempre necessari. Il valore predefinito dell'host è "localhost", il che significa che il server si trova sullo stesso computer del client. 
+
+		Per il nome utente, il valore predefinito dipende dal sistema in uso. Su Windows, l'utente comune è "ODBC", mentre per i sistemi Unix (Mac e Linux), questo è il tuo nome utente (il nome che appare nel prompt dei comandi).
+
+		Per la tua prima connessione a MySQL, dovrai accedere con l'utente root, per il quale hai normalmente impostato una password (se non l'hai fatto, non è necessario utilizzare questo parametro, ma non è molto sicuro). Successivamente, creeremo un nuovo utente.
+
+
+
+-------------------------------------------------------------
+Per ciascuno dei tre parametri sono possibili due sintassi:
+
+
+########
+# Host #
+########
+
+	--hote=nom_host
+ 
+# oppure
+
+	-h nom_host
+
+########
+# User #
+########
+
+	--user=nome-utente
+
+# oppure 
+
+	-u nome-utente
+
+################
+# Password     #
+################
+
+	--password=Password
+
+# oppure
+
+	-pPassword
+
+------------------------------------------------------------------
+
+
+Si noti l'assenza di spazio tra e password. Questo è inteso (ma solo per questo parametro) e spesso è una fonte di errori!!!!!!
+
+
+
+Il comando completo per connettersi è:
+
+	mysql -h localhost -u root -pPaswordScelta
+
+# oppure
+
+	mysql --host=localhost --user=root --password=PaswordScelta
+
+# oppure un miscuglio tra i due 
+
+	mysql -h localhost --user=root -pPaswordScelta
+
+---------------------------------------------------------------------------
+
+LOGOUT
+
+	Per disconnettersi dal client, è sufficiente utilizzare il comando 
+
+			quit
+
+		#oppure
+
+			exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

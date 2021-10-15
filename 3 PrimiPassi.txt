@@ -1,0 +1,148 @@
+
+SELECT 		è il comando che permette la selezione dei dati, ma anche la visualizzazione.
+
+		SELECT 'Hello World !';			// stamperá il nostro amato Hello World ! ma 2 volte
+
+			+---------------+
+			| Hello World ! |
+			+---------------+
+			| Hello World ! |
+			+---------------+
+			1 row in set (0.00 sec)
+
+			Appare due volte perché MySQL rappresenta i dati come una tabella. 
+			Quindi visualizza una tabella con una colonna, che chiama "Hello World!", per mancanza di informazioni migliori. E in questa tabella, abbiamo una fila di dati, il "Hello World!" che abbiamo richiesto.
+				
+
+
+SINTASSI
+
+
+	; 		istruzione TERMINA SEMPRE con i ;
+
+
+
+	# 		tutto ciò che segue questo carattere sarà considerato come un commento.
+
+	--		introduzione di un commento , la sintassi normale è accettata solo se 
+			entrambi i trattini sono seguiti da almeno uno spazio.
+
+
+---------------------------------------------------------------------------------------------
+
+STRINGHE DI CARATTERI 
+	
+	Quando si scrive una stringa di caratteri in un comando SQL, è essenziale circondarla con virgolette singole (apostrofi).
+
+	MySQL consente anche l'uso di virgolette doppie, ma questo non è il caso della maggior parte degli RDBMS. Per non entrare in cattive abitudini, ti consiglio di usare solo virgolette singole per delimitare le stringhe dei caratteri.
+
+	es:
+		SELECT 'Hello World !';
+
+		#oppure ma non consigliato	
+
+		SELECT "Hello World !";
+
+
+	CARATTERE SPECIALE 
+		se si desidera utilizzare un carattere speciale in una stringa, sarà necessario \
+
+		es:
+			 SELECT 'guarda l\'aereo\!';
+
+		NB 	solo in caso dell'apostrofo posso ripeterla due volte anziché mettere lo slash 
+
+		es:
+			 SELECT 'guarda l''aereo\!';
+
+
+	ALTRI CARATTERI SPECIALI 
+
+	\n  	accapo
+	\t 		scheda
+
+	\\ 		antislash (sì, devi sfuggire al carattere di scarico ...)
+
+	% 		percentuale (vedrai perché più tardi)
+
+	_		sottolineato (vedrai perché anche più tardi)		 
+
+
+		NB 	Altri RDBMS potrebbero usare altri caratteri
+
+
+-----------------------------------------------------------------------------------------
+
+MATEMATICA
+
+	Niente virgolette, questa volta, dato che sono numeri. 
+	MySQL calcola per noi e ci mostra il risultato.
+
+
+	SELECT (5+3)*2;
+	
+		+---------+
+		| (5+3)*2 |
+		+---------+
+		|      16 |
+		+---------+
+		1 row in set (0.00 sec)
+
+
+	MySQL è sensibile alla priorità delle operazioni, come puoi vedere digitando questo comando:
+
+	SELECT (5+3)*2, 5+3*2;
+
+		+---------+-------+
+		| (5+3)*2 | 5+3*2 |
+		+---------+-------+
+		|      16 |    11 |
+		+---------+-------+
+		1 row in set (0.00 sec)
+
+
+---------------------------------------------------------------------------------------------
+
+UTENTE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

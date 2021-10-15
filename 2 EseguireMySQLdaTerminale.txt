@@ -1,4 +1,13 @@
 
+per usare my SQL da terminale é neccessario CREARE UNA VARIABILE DI AMBIENTE 
+
+	recarsi sul terminale e digitare 
+		set PATH=%PATH%;percorso_per_arrivare_a_mysql_bin
+
+	nel mio caso 	
+			
+		set PATH=%PATH%;C:\Program Files\MySQL\MySQL Server 8.0\bin
+
 Il comando per lanciare il cliente è semplicemente il suo nome:
 
 mysql

@@ -105,10 +105,46 @@ MATEMATICA
 
 UTENTE
 
+	Non è molto consigliabile lavorare come "root" in MySQL, a meno che non ne abbiate specificamente bisogno. In effetti, "root" ha tutti i diritti.
+
+	Per evitare ciò, creeremo un nuovo utente che avrà diritti molto limitati.
+
+
+CREARE UN NUOVO UTENTE
+
+	Per quelli su Unix, nota che se crei un utente con lo stesso nome del tuo utente Unix, sarai in grado di omettere questo parametro quando ti connetti a mysql.
+
+CREARE UN UTENTE CON ACCESSO A UN SOLO DATABASE
+
+	CREATE USER 'nomeUtente'@'localhost' IDENTIFIED BY 'pasword';
+	GRANT ALL PRIVILEGES ON nomeDatabase.* TO 'nomeUtente'@'localhost';
 
 
 
+	CREATE USER 'nomeUtente' 	questo comando crea l'utente nomeUtente.
 
+	@'localhost' 	 			Definisce da dove l'utente può connettersi. 
+								Nel nostro caso, 'localhost', quindi dovrà essere collegato da questo computer.
+
+	IDENTIFIED BY 'pasword' 	imposta la password dell'utente.
+
+	GRANT ALL PRIVILEGES : 		questo comando consente di assegnare tutti i diritti 
+								(ad es. inserimenti di dati, selezioni, modifiche, cancellazioni, ecc.)
+
+	ON nomeDatabase.* 			Definisce i database e le tabelle su cui vengono acquisiti 
+								questi diritti.
+								Quindi qui, diamo i diritti sul database "nomeDatabase" (che non esiste ancora, ma non importa, lo creeremo in seguito), per tutte le tabelle di questo database (grazie a *).
+
+	TO 'nomeUtente'@'localhost' definisce l'utente (e il suo host) a cui vengono concessi 
+								questi diritti.
+
+
+PER CONNETTERSI A MySQL CON UN ALTRO UTENTE DIGITARE	(prima efettuare la disconnesione!!!)
+	
+		mysql -u nomeUtente -p 
+
+
+---------------------------------------------------------------------------------------
 
 
 

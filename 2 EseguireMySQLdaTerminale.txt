@@ -95,21 +95,78 @@ LOGOUT
 
 			exit
 
+--------------------------------------------------------------------------
+
+Il collegamento "MySQL Command Line" di Windows
+Quando si installa MySQL su Windows, viene installata automaticamente un'utilità "MySQL 8.0 Command Line Client". In realtà è solo una scorciatoia al prompt dei comandi, con opzioni configurate per avviare direttamente mysql.
+
+Per visualizzare queste opzioni, fare clic con il pulsante destro del mouse su questa utilità e fare clic su "Proprietà".
+
+
+		Nel campo "Target", possiamo vedere la seguente configurazione (dipende dalla versione di MySQL che hai installato):
+
+		"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" "--defaults-file=C:\ProgramData\MySQL\MySQL Server 8.0\my.ini" "-uroot" "-p" "--default-character-set=utf8mb4"
+
+			Questa utility:
+
+			avvia il programma client mysql.
+
+			passa il file my.ini, che è un file di configurazione predefinito.
+
+			con l'utente "root";
+
+			chiedendo la password.
 
 
 
 
+			Quindi puoi passare attraverso questa utility per connetterti a MySQL con un clic. 
+
+
+		PER CAMBIARE UTENTE 	
+
+		Per cambiare utente, modificare la parte "-uroot" nel campo "Target" e sostituire root con il nomeUtente hc epreferite
 
 
 
 
+---------------------------------------------------------------------------------------
+
+CODIFICA UTF-8 
+
+	Permette di utilizzare tutti i caratteri all'interno dei database MySQL 
+
+	per attivarlo a ogli accensione digitare 
+
+	SET NAMES 'utf8';
+
+	Questo comando definisce UTF-8 come la codifica in cui le richieste vengono emesse dal client,nonché la codifica utilizzata dal server per comunicare con il client.
 
 
+È anche possibile aggiungere un'opzione durante la connessione, per evitare di dover correre. Collegandosi nel modo seguente, la codifica verrà impostata su UTF-8 direttamente alla connessione:SET NAMES
 
+	mysql -u nomeUtente -p --default-character-set=utf8
 
+	NOTARE CHE IN MySQL 8.0 É GIA PRESENTE QUESTO SETTAGGIO
 
+--------------------------------------------------------------------------------------------
 
+INTERCLASSIFICAZIONI
 
+Le regole di interclassificazione sono un insieme di regole aggiunte alla codifica. 
+Per ogni set di caratteri possono esistere diverse regole di confronto, che definiscono due cose:
+
+	-l'ordine dei caratteri: 
+		ad esempio, l'ordine alfabetico. 
+		Quando si ordinano i dati con MySQL, l'ordinamento sarà basato sull'interclassificazione;
+
+	-equivalenze di caratteri: 
+		ad esempio, possiamo definire che le lettere maiuscole sono equivalenti alle lettere minuscole (interclassificazione senza distinzione tra maiuscole e minuscole). 
+		In modo che se cerchiamo i dati che contengono "a", troviamo anche quelli che contengono "A".
+
+	Ti suggerisco di mantenere le regole di confronto predefinite (che non fanno distinzione tra maiuscole e minuscole).
+
+	
 
 
 

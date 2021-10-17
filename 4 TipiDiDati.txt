@@ -14,7 +14,7 @@ la scelta del tipo di dati sbagliato potrebbe portare a:
 
 	l'impossibilità di utilizzare funzionalità specifiche per un tipo di dati (ad esempio, la memorizzazione di una data come stringa ti priva delle molte funzioni temporali disponibili).
 
-
+--------------------------------------------------------------------------------------------
 
 TIPI NUMERICI
 
@@ -40,7 +40,7 @@ TIPI NUMERICI
 
 			NB se si tenta di memorizzare 12457 in un TINYINT il valore memorizzato sarà 127!!!
 
-
+----------------------------------------------------------------------------------------------
 				+-----------+
 	ATTRIBUTO 	| UNSIGNED  |
 				+-----------+
@@ -52,12 +52,87 @@ TIPI NUMERICI
 		Per i TINYINT possiamo ad esempio passare da 0 a 255
 
 
-	LIMITARE LA TAGLIA DELLA STAMPA A SCHERMO DELL'ATRIBUTO (dato)
+																		+---------+
+	LIMITARE LA TAGLIA DELLA STAMPA A SCHERMO DELL'ATRIBUTO (dato)		| INT(x)  |
+																		+---------+
 
 		È possibile specificare il numero minimo di cifre quando si visualizza una colonna di tipo INT (o una delle sue derivate).
 		È quindi sufficiente specificare questo numero tra parentesi:	INT(x)
 
 		NB  non modifica le capacità di archiviazione nella colonna!!!!!!!!
+																		  +----------+
+	La taglia della stampa viene in genere utilizzata in combinazione con | ZEROFILL |
+																		  +----------+
+
+		es:
+			INT(4) ZEROFILL
+
+				Avrai la seguente vista:
+
+				Numero memorizzato	Numero visualizzato
+
+				4156				0045
+				4156 				4156
+				785164 				785164																  
+
+-------------------------------------------------------------------------------------------
+
+DECIMALI
+	Cinque parole chiave vengono utilizzate per memorizzare i numeri decimali in una colonna:
+
+			DECIMAL 	NUMERIC 	FLOAT 	REAL 	DOUBLE
+
+
+
+			NUMERIC e DECIMAL  
+			(memorizzati come stringhe dunque è il valore esatto che viene memorizzato)
+				sono equivalenti e accettano due parametri:
+
+					-Precisione
+						Definisce il numero di cifre significative memorizzate, 
+						quindi gli 0 a sinistra non contano. Infatti, 0024 equivale a 24. 
+						Quindi ci sono solo due numeri significativi in 0024.
+
+					-Scala
+						Definisce il numero di cifre dopo il punto decimale.
+
+
+					es:
+						in un campo DECIMAL(5,3)
+						possiamo quindi memorizzare numeri di 5 cifre significative al massimo, di cui 3 cifre sono dopo il punto decimale.
+
+
+				NB 	DECIMAL(4)  equivale a scrivere  DECIMAL(4, 0)
+
+				NB 	Se inseriamo un numero che non si trova nell'intervallo supportato 
+					dalla colonna, MySQL lo sostituirà con quello supportato più vicino.
+
+
+
+			FLOAT
+				può essere utilizzata senza parametri, nel qual caso vengono utilizzati quattro byte per memorizzare i valori della colonna.
+
+				Tuttavia, è possibile specificare una precisione e una scala, allo stesso modo di DECIMAL e NUMERIC
+
+
+			REAL e DOUBLE
+				non supportano i parametri.
+
+				DOUBLE dovrebbe essere piu preciso di REAL 
+				ma NON in MySQL che per entrambi usa 8 Byte per entrambi
+				in altri SGBDR	per i REAL si usano 4 Byte
+
+				NB 	meggli ousare sempre i DOUBLE per non cadere in errore 
+					il giorno che si usa un altro SGBDR.
+
+
+
+
+
+
+
+
+
 
 
 

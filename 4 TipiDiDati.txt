@@ -1,0 +1,76 @@
+
+
+SCELTA DEL TIPO DI DATI 
+
+
+la scelta del tipo di dati sbagliato potrebbe portare a:
+
+
+	memoria sprecata (ad esempio, se si memorizzano dati molto piccoli in una colonna fatta per memorizzare grandi quantità di dati)
+
+	problemi di prestazioni (ad esempio, è più veloce cercare su un numero che su una stringa)
+
+	comportamento contrario a quello previsto (ad esempio, l'ordinamento su un numero memorizzato come tale o su un numero memorizzato come stringa di caratteri non darà lo stesso risultato);
+
+	l'impossibilità di utilizzare funzionalità specifiche per un tipo di dati (ad esempio, la memorizzazione di una data come stringa ti priva delle molte funzioni temporali disponibili).
+
+
+
+TIPI NUMERICI
+
+	NUMERI INTERI
+
+		I tipi di dati che accettano numeri interi come valori sono designati dalla parola chiave INT e dalle sue declinazioni TINYINT, SMALLINT, MEDIUMINT  e BIGINT.
+
+		La differenza tra questi tipi è il numero di byte riservati al valore del campo.
+
+
+			Digitare 	byte 	Minimo					Massimo
+
+			TINYINT 	1 		-128 					127
+
+			SMALLINT	2		32768					32767	
+			MEDIUMINT	3 		-8388608				8388607
+			INT 		4 		-2147483648				2147483647
+			BIGINT 		8 		-92233720368547708 		9223372036854775807
+
+
+			Se si tenta di memorizzare un valore al di fuori dell'intervallo consentito dal tipo di campo, MySQL memorizzerà il valore più vicino.
+
+
+			NB se si tenta di memorizzare 12457 in un TINYINT il valore memorizzato sarà 127!!!
+
+
+				+-----------+
+	ATTRIBUTO 	| UNSIGNED  |
+				+-----------+
+		non specifichiamo se si tratta di un valore positivo o negativo 
+		(quindi avremo sempre un valore positivo)
+
+		In questo caso, la lunghezza dell'intervallo rimane la stessa, ma i valori possibili vengono spostati partendo dal MINIMO che é 0.
+
+		Per i TINYINT possiamo ad esempio passare da 0 a 255
+
+
+	LIMITARE LA TAGLIA DELLA STAMPA A SCHERMO DELL'ATRIBUTO (dato)
+
+		È possibile specificare il numero minimo di cifre quando si visualizza una colonna di tipo INT (o una delle sue derivate).
+		È quindi sufficiente specificare questo numero tra parentesi:	INT(x)
+
+		NB  non modifica le capacità di archiviazione nella colonna!!!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

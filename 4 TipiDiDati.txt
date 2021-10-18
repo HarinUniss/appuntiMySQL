@@ -135,6 +135,377 @@ TIPI ALFANUMERICI
 		CHAR e VARCHAR
 		Per memorizzare testo relativamente breve (meno di 255 caratteri)
 
+		La differenza tra CHAR e VARCHAR è il modo in cui vengono memorizzati in memoria
+
+			Con CHAR(x) si memorizzeranno sempre x caratteri, riempiendo il testo se necessario con spazi vuoti per completarlo, 
+
+			Con VARCHAR(x) si memorizzeranno fino a x caratteri (tra 0 e x), e si memorizzerà inoltre in memoria la dimensione del testo memorizzato.
+
+		Per entrambi , se si immette testo più lungo della dimensione massima impostata per il campo, verrà troncato.
+
+
+
+es:
+	Testo 			CHAR(5) 	Requisiti di memoria 	VARCHAR(5) 		Requisiti di memoria
+
+	'' 				'   '		5 byte					''				1 byte		
+	'tex'			'tex  '		5 byte					'tex'			4 byte		
+	'testo'			'texte'		5 byte					'texte'			6 byte		
+	'TroppoLungo'	'texte'		5 byte					'texte'			6 byte
+
+
+		QUANDO USARE CHI?
+
+			CHAR nel caso in cui tu sappia che avrai sempre x caratteri (ad esempio se memorizzi un codice postale).
+
+			VARCHAR se la lunghezza del testo può variare da riga a riga.
+
+
+	TEXT , TINYTEXT , MEDIUMTEXT , LONGTEXT
+		se voglio essere in grado di memorizzare testi più lunghi di 255 caratteri.
+
+
+			Digitare 	Lunghezza massima 		Memoria occupata
+
+			TINYTEXT 	28 byte 				Lunghezza stringa + 1 byte
+
+			TEXT 		216 byte 				Lunghezza stringa + 2 byte
+
+			MEDIUMTEXT 	224 byte 				Lunghezza stringa + 3 byte
+
+			LONGTEXT 	232 byte 				Lunghezza stringa + 4 byte
+
+
+---------------------------------------------------------------------------------------
+
+STRINGHE DI TIPO BINARIO
+	se i testi sono influenzati dalla codifica e dall'interclassificazione, le stringhe binarie non lo sono. 
+
+	Una stringa binaria non è altro che una sequenza di byte.
+
+	NON viene effettuata alcuna interpretazione su questi byte. Ciò ha due conseguenze principali:
+
+		-Una stringa binaria elabora direttamente il byte, non il carattere che il byte rappresenta. 
+		Quindi, ad esempio, una ricerca su una stringa binaria farà sempre distinzione tra maiuscole e minuscole, poiché "A" (codice binario: 01000001) sarà sempre diverso da "a" (codice binario: 01100001).
+
+		-È possibile utilizzare tutti i caratteri, inclusi i famosi caratteri di controllo non visualizzabili definiti nella tabella ASCII.
+
+
+	I tipi binari sono ottimi per archiviare dati "grezzi" come le immagini.
+
+
+	VARBINARY(x)  et BINARY(x)
+		consentono di memorizzare stringhe binarie fino a x caratteri (con gestione della memoria identica a VARCHAR(x) e CHAR(x)).
+
+
+	INYBLOB, BLOB, MEDIUMBLOB  e LONGBLOB
+		Per le stringhe più lunghe, con gli stessi limiti di archiviazione dei tipi TEXT
+
+
+
+-----------------------------------------------------------------------------------------
+
+SET e ENUM
+
+	sono tipi specifici di MySQL. Sono quindi da usare con grande cautela!
+
+	In quali situazioni dovrei usare ENUM o SET ?
+	La migliore risposta a questa domanda è: MAI!!!!!!!
+
+	La maggior parte dei DBMS implementa quelli che vengono chiamati vincoli di asserzione, che vengono utilizzati per definire i valori che una colonna può assumere (ad esempio, si potrebbe definire un vincolo per una colonna contenente un'età, che deve essere compresa tra 0 e 130).
+
+	MySQL non implementa questo tipo di vincolo e ha quindi creato due tipi di dati specifici ( SET e ENUM ), per compensare parzialmente questa mancanza.
+
+
+	ENUM 
+		è una colonna per la quale viene definito un certo numero di valori consentiti, ad esempio una "stringa di caratteri". 
+
+
+		es:
+			specie ENUM('gatto', 'cane', 'tartaruga')
+
+			La colonna delle specie può quindi contenere le stringhe "gatto", "cane" o "tartaruga", ma non le catene "coniglio" o "cavallo"
+
+
+			Oltre a "gatto", "cane" e "tartaruga", la colonna delle specie potrebbe assumere altri due valori:
+
+				-Se si tenta di introdurre una stringa non autorizzata, MySQL memorizzerà '' una stringa vuota nel campo.
+
+				-Se si consente al campo di non contenere un valore (si vedrà come farlo nel capitolo sulla creazione di tabelle), il campo conterrà NULL, che corrisponde a "nessun valore" in SQL (e in molti linguaggi informatici).
+
+
+		Per compilare un campo tipo ENUM, sono disponibili due opzioni:
+
+			1 compilare direttamente con il valore scelto 
+				("gatto", "cane" o "tartaruga", nel nostro esempio);
+
+			2 utilizzare l'indice del valore, cioè il numero associato da MySQL al valore. 
+				Questo numero è compreso tra 1 e il numero di valori definiti. 
+				L'indice viene assegnato in base all'ordine in cui i valori sono stati dati al momento della creazione del campo. 
+				La stringa vuota (memorizzata in caso di valore non autorizzato) corrisponde all'indice 0. 
+
+
+				La tabella seguente mostra i valori dell'indice per il nostro esempio precedente: il campo specie.
+
+						Valore 		Indice
+
+						NULL 		NULL
+
+						'' 			0
+
+						'gatto'		1
+
+						'cane'		2
+
+						'tartaruga'	3
+
+
+				In modo che tutto sia chiaro: se vuoi memorizzare "cane" nel tuo campo, puoi inserire "cane" o inserire 2 (senza virgolette, è un numero, non un carattere).
+
+
+				NB Si può avere un massimo di 65535 valori possibili!!!!
+
+- - - - - - - - - - -  - - - - - - - - - - - - - -  - - - - - - - - - - - - - -  - - - 
+
+	SET
+		Molto simile a ENUM.
+		Permette di memorizzare una stringa di caratteri i cui possibili valori sono predefiniti dall'utente.
+
+		La differenza con l'ENUM, è che si può memorizzare nella colonna tra 0 e x valore(i), 
+		dove x è il numero di valori consentiti.
+
+
+		es:
+			espece SET('chat', 'chien', 'tortue')
+
+			Possiamo memorizzare in questa colonna:
+
+					'' (stringa vuota);
+
+					'chat'  ;
+
+					'chat,tortue'  ;
+
+					'chat,chien,tortue'  ;
+
+					'chien,tortue'  ;
+
+					...
+
+		Quando si memorizzano più valori, è necessario separarli con una virgola, 
+		senza spazi, e circondare tutti i valori con virgolette (non ogni valore separatamente).
+		Di conseguenza, i valori consentiti in una colonna NON POSSONO contenere una virgola!!!
+
+		NON è possibile memorizzare LO STESSO valore più volte in un SET. "cane, cane" per esempio, NON è quindi valido.
+
+
+		SET utilizza un sistemma di indicizzazioone piu complesso degli ENUM 
+		utilizza un sistema di indici binari.
+
+		la presenza/assenza dei valori autorizzati sarà registrata come bit
+		impostati su 1 se il valore corrispondente è presente, su 0 se il valore corrispondente è assente.
+
+
+		Se prendiamo il nostro esempio, abbiamo:
+
+			espece SET('chat', 'chien', 'tortue')
+
+				000 significa che non è presente alcun valore.
+
+				001 significa che "gatto" è presente.
+
+				100 significa che è presente "tartaruga".
+
+				110 significa che sono presenti «cane» e «tartaruga».
+
+				...
+
+			queste sequenze di bit rappresentano numeri binari convertibili in numeri decimali. Quindi 000 in binario corrisponde a 0 in numero decimale, 001 corrisponde a 1, 010 corrisponde a 2, 011 a 3 ...
+
+				Valore		Binario		Decimale
+
+				'gatto'		001  		1
+
+				'cane'		010 		2
+
+				'tartaruga'	100 		4
+
+
+				Per memorizzare 'cat' e 'tartaruga' in un campo, possiamo quindi usare 'cat, turtle' o 101 (aggiunta dei numeri binari corrispondenti) o 5 (aggiunta dei numeri decimali corrispondenti).
+
+
+				NB  L'ordine in cui si immettono i valori non ha importanza.
+					Che tu scriva "gatto, tartaruga" o "tartaruga, gatto" non fa differenza.
+
+				NB 	Un campo SET può avere fino a 64 valori definiti!!!!
+
+----------------------------------------------------------------------------------------------
+
+TIPI TEMPORALI 
+
+	Quando si memorizza una data in MySQL, vengono effettuati alcuni controlli sulla validità della data inserita:
+
+		 il giorno deve essere compreso tra 1 e 31 
+
+		 il mese tra 1 e 12
+
+		 È possibile inserire una data come il 31 febbraio 2011!!! 
+		 Quindi fai ATTENZIONE alle date che inserisci e recuperi.
+
+
+	DATE , TIME , DATETIME
+
+		DATE
+			l'ordine dei dati è l'unico vincolo. Dobbiamo prima dare l'anno (due o quattro cifre), poi il mese (due cifre) e, infine, il giorno (due cifre), sotto forma di un numero o di una stringa di caratteri.
+
+				Se si tratta di una stringa, qualsiasi punteggiatura può essere utilizzata per delimitare le parti (o nessuna). 
+
+				'AAAA-MM-JJ' (è in questo formato che un DATE è memorizzato in MySQL)
+
+				'AAMMJJ'
+
+				'AAAA/MM/JJ'
+
+				'AA+MM+JJ'
+
+				'AAAA%MM%JJ'
+
+				AAAAMMJJ (numero)
+
+				AAMMJJ (numero)
+
+
+
+				il secolo non è specificato, ed è MySQL che deciderà cosa utilizzerà, secondo questi criteri:
+
+						se l'anno dato è compreso tra 00 e 69, useremo il ventunesimo secolo, quindi andremo dal 2000 al 2069;
+
+						d'altra parte, se l'anno è tra il 70 e il 99, useremo il XX secolo, quindi tra il 1970 e il 1999.
+
+				NB MySQL supporta intervalli DATE da '1001-01-01' a '9999-12-31'
+
+			- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		DATETIME
+			Questo tipo consente di memorizzare un tempo, oltre a una data.
+
+			Stesso principio di DATE : 
+				 per la data, anno-mese-giorno, e per l'ora, dobbiamo prima dare l'ora, poi i minuti, poi i secondi. 
+				 Se si utilizza una stringa, è necessario separare la data e l'ora con uno spazio.
+
+			'AAAA-MM-JJ HH:MM:SS' (è in questo formato che un DATETIME è memorizzato in MySQL)
+
+			'AA*MM*JJ HH+MM+SS'
+
+			AAAAMMJJHHMMSS (numero)
+
+
+		NB MySQL supporta DATETIME da '1001-01-01 00:00:00' a '9999-12-31 23:59:59'.
+
+
+		    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		TIME
+			un po 'più complicato, poiché consente non solo di memorizzare un tempo preciso, ma anche un intervallo di tempo.
+
+			Non siamo quindi limitati a 24 ore ed è anche possibile memorizzare un numero negativo di giorni o intervalli. 
+
+			Dobbiamo prima dare il tempo, poi i minuti, poi i secondi, ogni parte può essere separata dalle altre dal carattere ":"
+
+			Nel caso in cui sia specificato anche un numero di giorni, i giorni sono i primi e separati dal resto da uno spazio. 
+
+
+				'HH:MM:SS'
+
+				'HHH:MM:SS'
+
+				'MM:SS'
+
+				'J HH:MM:SS'
+
+				'HHMMSS'
+
+				HHMMSS (numero)
+
+		NB MySQL supporta intervalli da '-838:59:59' a '838:59:59'.
+
+
+
+		    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	
+		YEAR
+
+			Se hai solo bisogno di ricordare l'anno, è un tipo interessante, perché ci vuole solo un byte in memoria. 
+
+			Tuttavia, un byte che può contenere solo 256 valori diversi, è altamente limitato
+
+				Puo memorizzare anni tra il 1901 e il 2155.
+
+			Si può inserire un dato di tipo YEAR sotto forma di una stringa di caratteri o interi, con 2 o 4 cifre. 
+			Se specifichiamo solo due cifre, il secolo viene aggiunto da MySQL secondo gli stessi criteri di per DATE e DATETIME.
+
+			CON UNA SOLA ECCEZIONE: 
+			se inseriamo 00 (un numero intero quindi), verrà interpretato come il valore predefinito di 0000. D'altra parte, se entriamo (una stringa di caratteri), sarà ben interpretato come l'anno 2000.
+
+
+
+		TIMESTAMP
+			il timestamp di una data è il numero di secondi trascorsi dal 1 ° gennaio 1970, 0 h 0 min 0 s (TUC) e la data in questione.
+
+			Poiché i timestamp sono memorizzati su 4 byte, esiste un limite superiore: 19 gennaio 2038 a 3 h 14 min 7 s. Pertanto, assicurarsi di rientrare nell'intervallo di validità prima di utilizzare un timestamp.
+
+
+				Il tipo TIMESTAMP di MySQL è comunque un po' particolare. 
+				Prendiamo ad esempio il 4 ottobre 2011, alle 21 h 5 min 51 s.
+				Tra questa data e il 1 gennaio 1970, 0 h 0 min 0 s, esattamente 1.317.755.151 secondi passati. 
+				Il numero 1.317.755.151 è quindi, per definizione, il timestamp di questa data del 4 ottobre 2011, 21 h 5 min 51 s.
+				Tuttavia, per memorizzare questa data in un SQL, non è 1 317 755 151 che verrà utilizzato, ma 20111004210551. 
+				Cioè, l'equivalente, in formato digitale, di DATETIME '2011-10-04 21:05:51'.
+
+
+			Non è quindi possibile memorizzare un timestamp "reale" in una colonna di tipo TIMESTAMP. 
+			Questo è ovviamente controintuitivo e soggetto a errori.
+
+			Si noti che, nonostante ciò, TIMESTAMP in SQL ha le stesse limitazioni di un timestamp reale: accetterà solo date comprese tra il 1 ° gennaio 1970 a 0 h 0 min 0 s e il 19 gennaio 2038 a 3 h 14 min 7 s.
+
+
+
+		    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+LA DATA PREDEFINITA
+
+	Quando MySQL rileva una data/ora errata o che non rientra nell'intervallo di validità del campo, viene memorizzato il valore predefinito '0'
+
+	Questo è il valore "zero" del tipo. 
+
+	È possibile fare riferimento a questo valore predefinito utilizzando (carattere), 0 (numero) o la rappresentazione di "zero" corrispondente al tipo di colonna (vedere la tabella seguente).
+
+
+Digitare	Data predefinita ("zero")
+
+DATE   		'0000-00-00'
+
+DATETIME 	'0000-00-00 00:00:00'
+
+TIME 		'00:00:00'
+
+YEAR 		0000
+
+TIMESTAMP 	00000000000000
+
+
+	Un'eccezione, però: se ne inserisci un TIME che supera l'intervallo di validità, MySQL non lo sostituirà con lo "zero", ma con il valore più vicino appartenente all'intervallo di validità (-838:59:59 o 838:59:59)
+
+
+
+
+
+
+
+
+
+
+
 
 
 

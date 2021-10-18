@@ -109,6 +109,9 @@ DECIMALI
 
 
 
+			FLOAT DOUBLE e REAL	
+			(sono memorizzati come numeri)	
+
 			FLOAT
 				può essere utilizzata senza parametri, nel qual caso vengono utilizzati quattro byte per memorizzare i valori della colonna.
 
@@ -125,8 +128,12 @@ DECIMALI
 				NB 	meggli ousare sempre i DOUBLE per non cadere in errore 
 					il giorno che si usa un altro SGBDR.
 
+--------------------------------------------------------------------------------------------
 
+TIPI ALFANUMERICI 
 
+		CHAR e VARCHAR
+		Per memorizzare testo relativamente breve (meno di 255 caratteri)
 
 
 

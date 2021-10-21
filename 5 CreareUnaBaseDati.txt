@@ -1,0 +1,145 @@
+
+CONVENZIONI 
+
+	NOME TABELLE E COLONNE
+		non usare mai spazzi e accenti , al posto dello spazio meglio il trattino basso o usare scrittura a caammello.
+
+
+		non usare i nomi riservati a determinate funzioni di SQL:
+
+				SELECT, INSERT INTO, UPDATE, DELETE, DROP TABLE…
+				AVG(), COUNT(), MAX() …
+				date, text, type ...
+
+
+
+	PAROLE CHIAVE
+		Una convenzione ampiamente diffusa è che i comandi SQL e le parole chiave sono scritti completamente in maiuscolo.
+
+
+	NOMI TABELLE 
+		Consigliabile mettere solo la prima lettera maiuscola
+
+	ATTENZIONE!!!
+		Quando si tratta di nomi di tabelle e colonne.
+			Su WIndows MySQL NON é case sensitive!!!
+			su Mac e Linux si !!!
+
+
+	DOCUMENTAZIONE MySQL
+		Cercando i comandi nella documentazione SQL vedrai che alcuni comandi hanno opzioni opzionali.
+
+		si usano le parentesi quadre [ ] per indicare ciò che è facoltativo. 
+
+			es:
+				COMMANDO gelato vaniglia [con cioccolato] [con pannaMontata]
+
+				Quindi la seguente scrittura significa che puoi ordinare il tuo gelato alla vaniglia da solo, o con cioccolato, o con panna montata, o con cioccolato E panna montata.
+
+-----------------------------------------------------------------------------------------------
+
+CREAZIONE DI UNA BASE DATI 
+
+	Ricorda, quando crei il tuo utente MySQL, gli hai dato tutti i diritti sul database che stai per creare, anche se non esisteva ancora.
+
+
+		CREATE DATABASE nome_database;
+
+			Ti ricordo che è anche necessario definire la codifica utilizzata (UTF-8, nel nostro caso).
+
+		CREATE DATABASE nome_database CHARACTER SET 'utf8';
+
+			Quando creiamo le nostre tabelle nel database, automaticamente, saranno anche codificate in UTF-8.
+
+ELIMINARE UN DATABASE
+	
+	DROP DATABASE nome_database;
+
+		CancellA tutti i file creati da MySQL che vengono utilizzati per memorizzare le informazioni nel tuo database.
+
+
+	Se provi questo comando quando il database del bestiame non esiste, MySQL ti mostrerà un errore:
+
+		mysql> DROP DATABASE elevage;
+		ERROR 1008 (HY000) : Can't drop database 'elevage'; database doesn't exist
+		mysql>
+
+	Per evitare questo messaggio di errore, se non si è certi che il database esista, è possibile utilizzare l'opzione , come segue:IF EXISTS
+
+		DROP DATABASE IF EXISTS nome_database;
+
+	Se il database esiste, dovresti avere un messaggio come:
+
+		Query OK, 0 rows affected (0.00 sec)
+
+	Se non esiste, avrai:
+
+		Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+
+
+
+VISUALIZZARE GLI AVVISI MySQL, utilizzare il comando:
+
+		SHOW WARNINGS;
+
+		Questo comando visualizza una tabella:
+
+		Livello 	Codice 		Messaggio 	
+		Nota 		1008 		Impossibile eliminare il database 'elevage'; 
+								il database non esiste
+
+
+------------------------------------------------------------------------------------------
+
+UTILIZZARE UN DATABASE 
+Una volta creato per essere in grado di agire su questa base, devi prima selezionarlo. 
+
+	USE nome_database
+
+				Questo è tutto! D'ora in poi, tutte le azioni eseguite verranno eseguite sul database  nome_database
+
+
+SELEZIONARE IL DATABASE DIRETTAMENTE CON IL LOGIN
+
+	Basta aggiungere il nome del database alla fine del comando di connessione
+
+			mysql -u nome_utente -p nome_database;
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,11 +27,11 @@ TIPI NUMERICI
 
 			Digitare 	byte 	Minimo					Massimo
 
-			TINYINT 	1 		-128 				127
-			SMALLINT	2		32768				32767	
-			MEDIUMINT	3 		-8388608			8388607
-			INT 		4 		-2147483648			2147483647
-			BIGINT 		8 		-92233720368547708 		9223372036854775807
+			TINYINT     1       -128                    127
+			SMALLINT    2       -32768                   32767	
+			MEDIUMINT   3 		-8388608                8388607
+			INT         4       -2147483648             2147483647
+			BIGINT      8       -92233720368547708      9223372036854775807
 
 
 			Se si tenta di memorizzare un valore al di fuori dell'intervallo consentito dal tipo di campo, MySQL memorizzerà il valore più vicino.
@@ -40,9 +40,9 @@ TIPI NUMERICI
 			NB se si tenta di memorizzare 12457 in un TINYINT il valore memorizzato sarà 127!!!
 
 ----------------------------------------------------------------------------------------------
-			+-----------+
+                +-----------+
 	ATTRIBUTO 	| UNSIGNED  |
-			+-----------+
+                +-----------+
 		non specifichiamo se si tratta di un valore positivo o negativo 
 		(quindi avremo sempre un valore positivo)
 
@@ -51,17 +51,17 @@ TIPI NUMERICI
 		Per i TINYINT possiamo ad esempio passare da 0 a 255
 
 
-										+---------+
+                                                                        +---------+
 	LIMITARE LA TAGLIA DELLA STAMPA A SCHERMO DELL'ATRIBUTO (dato)		| INT(x)  |
-										+---------+
+                                                                        +---------+
 
 		È possibile specificare il numero minimo di cifre quando si visualizza una colonna di tipo INT (o una delle sue derivate).
 		È quindi sufficiente specificare questo numero tra parentesi:	INT(x)
 
 		NB  non modifica le capacità di archiviazione nella colonna!!!!!!!!
-	    								      +----------+
+                                                                          +----------+
 	La taglia della stampa viene in genere utilizzata in combinazione con | ZEROFILL |
-									      +----------+
+                                                                          +----------+
 
 		es:
 			INT(4) ZEROFILL
@@ -145,12 +145,12 @@ TIPI ALFANUMERICI
 
 
 	es:
-		Testo 			CHAR(5) 	Requisiti di memoria 	VARCHAR(5) 		Requisiti di memoria
+		Testo           CHAR(5)     Requisiti di memoria    VARCHAR(5)      Requisiti di memoria
 	
-		'' 			'   '		5 byte			''			1 byte		
-		'tex'			'tex  '		5 byte			'tex'			4 byte		
-		'testo'			'texte'		5 byte			'texte'			6 byte		
-		'TroppoLungo'		'texte'		5 byte			'texte'			6 byte
+		''              '   '       5 byte                  ''              1 byte		
+		'tex'           'tex  '     5 byte                  'tex'           4 byte		
+		'testo'         'texte'     5 byte                  'texte'         6 byte		
+		'TroppoLungo'   'texte'     5 byte                  'texte'         6 byte
 
 
 		QUANDO USARE CHI?
@@ -164,15 +164,15 @@ TIPI ALFANUMERICI
 		se voglio essere in grado di memorizzare testi più lunghi di 255 caratteri.
 
 
-			Digitare 	Lunghezza massima 	Memoria occupata
+			Digitare      Lunghezza massima     Memoria occupata
 
-			TINYTEXT 	28 byte 		Lunghezza stringa + 1 byte
+			TINYTEXT      28 byte               Lunghezza stringa + 1 byte
 
-			TEXT 		216 byte 		Lunghezza stringa + 2 byte
+			TEXT          216 byte              Lunghezza stringa + 2 byte
 
-			MEDIUMTEXT 	224 byte 		Lunghezza stringa + 3 byte
+			MEDIUMTEXT    224 byte              Lunghezza stringa + 3 byte
 
-			LONGTEXT 	232 byte 		Lunghezza stringa + 4 byte
+			LONGTEXT      232 byte              Lunghezza stringa + 4 byte
 
 
 ---------------------------------------------------------------------------------------
@@ -246,17 +246,17 @@ SET e ENUM
 
 				La tabella seguente mostra i valori dell'indice per il nostro esempio precedente: il campo specie.
 
-						Valore 		Indice
+						Valore        Indice
 
-						NULL 		NULL
+						NULL          NULL
 
-						'' 		0
+						''            0
 
-						'gatto'		1
+						'gatto'       1
 
-						'cane'		2
+						'cane'        2
 
-						'tartaruga'	3
+						'tartaruga'   3
 
 
 				In modo che tutto sia chiaro: se vuoi memorizzare "cane" nel tuo campo, puoi inserire "cane" o inserire 2 (senza virgolette, è un numero, non un carattere).
@@ -321,13 +321,13 @@ SET e ENUM
 
 			queste sequenze di bit rappresentano numeri binari convertibili in numeri decimali. Quindi 000 in binario corrisponde a 0 in numero decimale, 001 corrisponde a 1, 010 corrisponde a 2, 011 a 3 ...
 
-				Valore		Binario		Decimale
+				Valore       Binario    Decimale
 
-				'gatto'		001  		1
+				'gatto'      001        1
 
-				'cane'		010 		2
+				'cane'       010        2
 
-				'tartaruga'	100 		4
+				'tartaruga'  100        4
 
 
 				Per memorizzare 'cat' e 'tartaruga' in un campo, possiamo quindi usare 'cat, turtle' o 101 (aggiunta dei numeri binari corrispondenti) o 5 (aggiunta dei numeri decimali corrispondenti).
@@ -480,17 +480,17 @@ LA DATA PREDEFINITA
 	È possibile fare riferimento a questo valore predefinito utilizzando (carattere), 0 (numero) o la rappresentazione di "zero" corrispondente al tipo di colonna (vedere la tabella seguente).
 
 
-		Digitare	Data predefinita ("zero")
+		Digitare    Data predefinita ("zero")
 
-		DATE   		'0000-00-00'
+		DATE        '0000-00-00'
 
-		DATETIME 	'0000-00-00 00:00:00'
+		DATETIME    '0000-00-00 00:00:00'
 
-		TIME 		'00:00:00'
+		TIME        '00:00:00'
 
-		YEAR 		0000
+		YEAR        0000
 
-		TIMESTAMP 	00000000000000
+		TIMESTAMP   00000000000000
 
 
 	Un'eccezione, però: se ne inserisci un TIME che supera l'intervallo di validità, MySQL non lo sostituirà con lo "zero", ma con il valore più vicino appartenente all'intervallo di validità (-838:59:59 o 838:59:59)

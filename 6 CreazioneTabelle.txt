@@ -209,13 +209,13 @@ CREAZIONE PASSO PASSO TABELLA ANIMALI
 
 	PICCOLA TABELLA RIASSUNTIVA 
 
-		Caratteristico 		Nome colonna 		Tipo 			NULL?
+		Caratteristico      Nome colonna    Tipo            NULL?
 
-		Specie 			specie 			VARCHAR(40) 		No 
-		Sesso 			sesso 			CHAR(1) 		Sì
-		Data di nascita 	data_nascita 		DATETIME 		No
-		Commenti 		commenti 		TEXT 			Sì
-		Nome 			nome 			VARCHAR(30) 		Sì
+		Specie              specie          VARCHAR(40)     No 
+		Sesso               sesso           CHAR(1)         Sì
+		Data di nascita     data_nascita    DATETIME        No
+		Commenti            commenti        TEXT            Sì
+		Nome                nome            VARCHAR(30)     Sì
 
 
 		Non dimenticare di dare una dimensione alle colonne che ne richiedono una, 
@@ -264,21 +264,21 @@ CREAZIONE PASSO PASSO TABELLA ANIMALI
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	RIASSUNTO TABELLA ANIMALI
 
-		Caratteristico 		Nome colonna 		Tipo 		NULL? 		Diverso
+		Caratteristico      Nome colonna        Tipo           NULL?        Diverso
 
-		Numero Identitá		id			SMALINT		No		ChiavePrimaria+
-												AutoIncremento+
-												UNSIGNED
+		Numero Identitá     id                  SMALINT        No           ChiavePrimaria+
+                                                                            AutoIncremento+
+												                            UNSIGNED
 
-		Specie 			specie 			VARCHAR(40) 	No 		---------	
+		Specie              specie              VARCHAR(40)    No            ---------	
 
-		Sesso 			sesso 			CHAR(1) 	Sì		---------
+		Sesso               sesso               CHAR(1)        Sì            ---------
 
-		Data di nascita 	data_nascita 		DATETIME 	No 		---------
+		Data di nascita     data_nascita        DATETIME       No            ---------
 
-		Commenti 		commenti 		TEXT 		Sì		---------
+		Commenti            commenti            TEXT           Sì            ---------
 
-		Nome 			nome 			VARCHAR(30) 	Sì		---------
+		Nome                nome                VARCHAR(30)    Sì            ---------
 
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

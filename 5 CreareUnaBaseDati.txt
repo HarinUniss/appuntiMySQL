@@ -36,7 +36,7 @@ CONVENZIONI
 
 				Quindi la seguente scrittura significa che puoi ordinare il tuo gelato alla vaniglia da solo, o con cioccolato, o con panna montata, o con cioccolato E panna montata.
 
------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 
 CREAZIONE DI UNA BASE DATI 
 
@@ -107,9 +107,25 @@ SELEZIONARE IL DATABASE DIRETTAMENTE CON IL LOGIN
 			mysql -u nome_utente -p nome_database;
 
 -------------------------------------------------------------------------------------------
+##########################################################################################
+-------------------------------------------------------------------------------------------
+
+ESEMPIO PRATICO
+	durante questi appunti lavoreró sempre su un esempio pratico a fine capitolo 
+
+
+	CREAZIONE DI UNA BASE DATI PER UN ALLEVAMENTO 
+
+		CREATE DATABASE allevamento CHARACTER SET 'utf8';
+
+	ACCESOO AL DATABASE
+
+		USE DATABASE allevamento:
 
 
 
+continua nel prossimo capitolo!!!
+;-)
 
 
 

@@ -1,0 +1,166 @@
+AGGIUNGERE , MODIFICARE E ELIMINARE COLONNE DI UNA TABELLA
+
+			Nota che idealmente, si dovrebbe pensare in anticipo alla struttura della tua base e creare tutte le tue tabelle direttamente e in modo pulito. 
+			Ma puó capitare di avere la necessitá di modificarle eccezionalmente.
+
+	SINTASSI DELLE QUERY
+
+		Quando si vuole modificare una tabella, è possibile aggiungere, rimuovere o modificare qualcosa. 
+		In tutti e tre i casi verrà utilizzato il comando ALTER TABLE
+		Abbiamo variante esistente per ciascuna delle operazioni:
+
+
+		ALTER TABLE nome_tabella ADD ...     -- permette di aggiungere qualcosa (una colonna da esempio)
+
+		ALTER TABLE nome_tabella DROP ...    -- permette di eliminare qualcosa 
+
+		ALTER TABLE nome_tabella CHANGE ...  -- permette di cambiare una colonna
+		ALTER TABLE nome_tabella MODIFY ...  -- permette di modificare una colonna
+
+
+
+	AGGIUNTA DI UNA COLONNA
+
+		ALTER TABLE Nome_tabella 
+		ADD [COLUMN] nome_colonna descrizzione_colonna;
+
+
+
+			COLUMN 	è facoltativo, quindi, se come risultato di ADD, 
+					non si specifica ciò che si desidera aggiungere, 
+					MySQL lo considererà come una colonna.
+
+
+			descrizzione_colonna 	è lo stesso di quando si crea una tabella. 
+									Contiene il tipo di dati e facoltativamente NULL o NOT NULL, ecc.
+
+
+
+			es:
+				Aggiungiamo una colonna inserimento_data alla nostra tabella Tabella_Prova. 
+				Questa è una data, quindi una colonna di tipo DATE è perfetta. 
+				Diciamo che questa colonna non può essere NULL (se è nella tabella, deve essere stata inserita). QScrivo dunque:
+
+						ALTER TABLE Tabella_Prova 
+						ADD COLUMN inserimento_data DATE NOT NULL;
+
+					VERIFICARE SE TUTTO HA FUNZIONATO
+
+						DESCRIBE Tabella_Prova; 	-- ti permetterà di controllare le modifiche apportate.
+			
+
+	ELIMINARE UNA COLONNA
+
+		ALTER TABLE Nome_tabella 
+		DROP [COLUMN] nome_colonna;
+
+			COLUMN 	è sempre facoltativo.
+
+			es:
+				elimineremo la colonna inserimento_data,
+
+				 	ALTER TABLE Tabella_Prova 
+					DROP COLUMN inserimento_data; 	-- Eliminazione della colonna inserimento_data
+
+
+
+	MODIFICARE NOME DELLA COLONNA
+
+		ALTER TABLE Nome_tabella 
+		CHANGE vecchio_nome nuovo_nome descrizzione_colonna;
+
+			es:
+				ALTER TABLE Tabella_Prova 
+				CHANGE codice id VARCHAR(30) NOT NULL;		-- Cambio codice con id
+
+
+			Attenzione, la descrizione della colonna deve essere completa, altrimenti verrà anche modificata!!!
+			Se non si specifica NOT NULL nel comando precedente, la colonna potrá contenere NULL, anche se al momento in cui è stata creata la colonna, era vietato farlo!!!
+
+
+
+	MODIFICARE TIPO DI DATI
+
+		Le parole chiave CHANGE e MODIFY possono essere utilizzate per modificare il tipo di dati della colonna, ma anche modificare il valore predefinito o aggiungere / rimuovere una proprietà come AUTO_INCREMENT. 
+
+		Se usi CHANGE, si puo rinominare la colonna allo stesso tempo.
+		Se non si desidera rinominarla, è sufficiente inserire lo stesso nome due volte.
+
+
+
+		ALTER TABLE Nome_tabella 
+		CHANGE vecchio_nome nuovo_nome nuova_descrizzione_colonna;
+
+		ALTER TABLE Nome_tabella 
+		MODIFY nome_colonna nuova_descrizzione_colonna;
+
+
+
+		es:
+
+		ALTER TABLE Tabella_Prova 
+		CHANGE cognome nome VARCHAR(30) NOT NULL; -- Cambiamento del tipo + cambiamento del nome
+
+		ALTER TABLE Tabella_Prova 
+		CHANGE id id BIGINT NOT NULL; -- cambiamento del tipo senza rinominare
+
+		ALTER TABLE Tabella_Prova
+		MODIFY id BIGINT NOT NULL AUTO_INCREMENT; -- aggiunta dell'auto incrementazione
+
+		ALTER TABLE Tabella_Prova 
+		MODIFY nome VARCHAR(30) NOT NULL DEFAULT 'Blabla'; 
+
+		-- cambiamento della descrizione (stesso tipo ma aggiunta di un valore di default)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

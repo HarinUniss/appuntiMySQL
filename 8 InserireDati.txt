@@ -1,0 +1,112 @@
+INSERIRE DATI IN UN ATABELLA
+
+
+
+	INSERIMENTO SENZA SPECIFICARE COLONNE
+
+
+		Inserimento dati
+
+			INSERT INTO Nome_tabella 
+			VALUES ( val_colonna1 , val_colonna2 , val_colonna3 , ... , val_colonnaN );
+
+
+			se la colonna lo permette e non ho i dato al posto del dato posso mettere NULL 
+
+			INSERT INTO Nome_tabella 
+			VALUES ( val_colonna1 , NULL , val_colonna3 , ... , val_colonnaN );
+
+
+
+			Se e stato abilitato l'INCREMENTO AUTOMATICO per una colonna che non puo avere NULL
+			posso comunque scrivere NULL!!! MySQL si calcolerá il valore da mettere nella casella!!!
+
+
+	INSERIMENTO PRECISANDO LE COLONNE
+
+		Nella query, scriveremo quindi esplicitamente a quale colonna diamo un valore. 
+		Ciò consentirà due cose:
+
+			-I valori non devono più essere indicati nell'ordine in cui sono state create le colonne,
+			 ma nell'ordine specificato dalla query.
+
+			-Non dobbiamo più dare un valore a ogni colonna; 
+			 non c'è bisogno di NULL quando non si ha valore da mettere.
+
+
+
+		INSERT INTO Nome_tabella (nome_colonna1, nome_colonna3, nome_colonna6) 
+		    VALUES ('tartaruga', 'F', '2009-08-03 05:12:00');
+
+	INSERIMENTO MULTIPLO
+
+		Se si dispone di più righe da inserire, è possibile farlo in un'unica query come segue:
+
+		INSERT INTO Animal (espece, sexe, date_naissance, nom) 
+		VALUES  ('cane', 'F', '2008-12-06 05:18:00', 'Caroline'),
+        		('gatto', 'M', '2008-09-11 15:38:00', 'Bagherra'),
+        		('tartaruga', NULL, '2010-08-23 05:18:00', NULL);
+
+
+        		Naturalmente, si é poi obbligato a specificare le STESSE colonne per ogni voce!!!
+        		anche se ciò significa mettere NULL per alcuni. 
+        		Ma comunque c'é meno da scrivere!!! 
+
+	VERIFICARE GLI ELEMENTI PRESENTI NELLA TABELLA 
+
+		SELECT * FROM Nome_tabella;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

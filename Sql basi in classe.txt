@@ -1,0 +1,187 @@
+Si ammettono i duplicati , perche delle volte srvono e per eliminarli bisognerebbe mettere tutta la lista in ordine per individuare i doppioni
+
+Ricerca informazioni 
+		SELECT attributo1 , ... , attributoN
+		from Tabella
+		where Condizione che deve dare vero o falso o Null
+
+
+
+
+
+
+
+Alias di ridenominazione
+as  	per cambiare nome ad una o piu colonne
+
+-----------------------------------------
+
+trovare nome cognome degli impiegati che lavorano nell'ufficio 20
+slide 50
+
+
+select distinct padre
+from persone , paternita , maternita
+where figlio 0 nome
+
+
+obbiettivo ottenere un unica rica per ogni informazione che ha tutte le colonne su cui applicare le condizioni che mi servono.
+
+
+come si scrive il join 
+
+
+tabella1 join tabellla2 on condizioneJoin
+
+
+
+
+
+SELEZZIONARE DEI DATI
+
+
+	SELECT 
+		Query che permette di selezionare un dato di una tabella o un dat appena scritto.
+
+
+		seleziono un dat inserito 
+			es:
+				SELECT 'Hello World !';
+			es:
+				SELECT 3+2;
+
+
+		selezionare parte di una tabella
+			Per fare cio necessito della key FROM che definisce da quale struttura (solitamente una tabella) provengono i dati.
+
+
+			SELECT colonne1, colonne2, ...  	--seleziono i nomi delle colonne che voglio
+			FROM nom_table;					--indico il nome delle tabelle che voglio 
+
+
+			selezzionare tutte le colonne di una tabella
+
+				SELECT *
+				FROM NomeTabella;
+
+			NB. notare dal punto e virgola finale che è tutto un UNICO comando!!!
+
+
+	WHERE
+		consente di limitare i risultati in base ai criteri di ricerca che amdrò a stabilire.
+
+		SELECT clonna2 , colonna4 
+		FROM NomeTabella 
+		WHERE comparazione ;
+
+
+		Operatori di comparazione
+
+				Operatore   Significato
+				=            uguale
+
+				<            inferiore
+
+				<=            minore o uguale
+
+				>            superiore
+
+				>=            maggiore o uguale
+
+				<> oppure !=            differente
+
+				<=>		uguale (valido anche per)NULL
+
+			es:
+
+				SELECT colonna1, colonna6
+				FROM NomeTabella 
+				WHERE data_nascita < '2008-01-01'; 
+
+				SELECT * 
+				FROM NomeTabella
+				WHERE nome <> 'mario'; 		--tutti tranne mario (povero mario ...)
+
+		Combinazione di criteri
+			
+			pe rutilizzare piu criteri sulla stessa linea utilizzremo gli OPERATORI LOGICI
+
+			Opérateur
+
+Symbole
+
+Signification
+
+AND
+
+&&
+
+ET
+
+OR
+
+||
+
+OU
+
+XOR
+
+ 
+
+OU exclusif
+
+NOT
+
+!
+
+NON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

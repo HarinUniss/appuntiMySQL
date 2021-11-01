@@ -1,0 +1,334 @@
+SELEZZIONARE DEI DATI
+
+
+	SELECT 
+		Query che permette di selezionare un dato di una tabella o un dat appena scritto.
+
+
+		seleziono un dat inserito 
+			es:
+				SELECT 'Hello World !';
+			es:
+				SELECT 3+2;
+
+
+		selezionare parte di una tabella
+			Per fare cio necessito della key FROM che definisce da quale struttura (solitamente una tabella) provengono i dati.
+
+
+			SELECT colonne1, colonne2, ...  	--seleziono i nomi delle colonne che voglio
+			FROM nom_table;					--indico il nome delle tabelle che voglio 
+
+
+			selezzionare tutte le colonne di una tabella
+
+				SELECT *
+				FROM NomeTabella;
+
+			NB. notare dal punto e virgola finale che è tutto un UNICO comando!!!
+
+
+	WHERE
+		consente di limitare i risultati in base ai criteri di ricerca che amdrò a stabilire.
+
+		SELECT clonna2 , colonna4 
+		FROM NomeTabella 
+		WHERE comparazione ;
+
+
+		Operatori di comparazione
+
+				Operatore   Significato
+				=            uguale
+
+				<            inferiore
+
+				<=            minore o uguale
+
+				>            superiore
+
+				>=            maggiore o uguale
+
+				<> oppure !=            differente
+
+				<=>		uguale (valido anche per)NULL
+
+			es:
+
+				SELECT colonna1, colonna6
+				FROM NomeTabella 
+				WHERE data_nascita < '2008-01-01'; 
+
+				SELECT * 
+				FROM NomeTabella
+				WHERE nome <> 'mario'; 		--tutti tranne mario (povero mario ...)
+
+		Combinazione di criteri
+			
+			pe rutilizzare piu criteri sulla stessa linea utilizzremo gli OPERATORI LOGICI
+
+						Opérateur    Symbole  Signification
+
+						AND          &&       e
+
+						OR           ||       o
+
+						XOR                   o esclusivo
+
+						NOT          !        non
+
+			es:
+				Voglio selezionare animali che siano sia gatti che femmine. Uso l'operatore AND:
+
+						SELECT * 			--seleziono tutte le colonne
+						FROM Animali 		--della tabella animali 
+						WHERE specie='chat' --dove nella colonna specie ci deve essere gatto 
+						    AND sexe='F';	--e nella stessa linea il sesso deve essere F
+
+						-- alternativa 
+
+						SELECT * 			--seleziono tutte le colonne
+						FROM Animali 		--della tabella animali 
+						WHERE specie='chat' --dove nella colonna specie ci deve essere gatto 
+						    && sexe='F';	--e nella stessa linea il sesso deve essere F
+
+
+			es:
+				voglio ottenere gli animali che sono tartarughe OR pappagalli:
+
+						SELECT * 			--seleziono tutte le colonne
+						FROM Animali 		--della tabella animali 
+						WHERE specie='tortue' 
+						    OR specie='perroquet';
+
+						-- alternativa 
+
+						SELECT * 			--seleziono tutte le colonne
+						FROM Animal 		--della tabella animali 
+						WHERE specie='tortue' --prendo le righe dove nella colonna specie ci deve essere tartaruga
+						    || specie='perroquet';	-- e quelle dove nella colonna specie c'é pappagallo
+
+
+			es:
+				Selezione di tutti gli animali di sesso femminile tranne i cani
+
+						SELECT * 
+						FROM Animali 
+						WHERE sexe='F' 
+						    AND NOT specie='chien';
+
+						-- alternativa 
+
+						SELECT * 
+						FROM Animali 
+						WHERE sexe='F' 
+						    AND ! (specie='chien');
+
+				Le parentesi sono essenziali nel caso del ! , altrimenti si riferisce solo alle specie. Dimenticare le parentesi è come fare WHERE (NOT espece) = 'chien', il che non ha senso.
+
+
+
+			es:
+				Selezione di animali che sono maschi o pappagalli (ma non entrambi):
+
+						SELECT * 
+						FROM Animali 
+						WHERE sexe='M' 
+						    XOR espece='perroquet';
+
+
+
+	SELEZIONI COMPLESSE 
+		Quando si utilizzano più criteri e quindi è necessario combinare più operatori logici, è estremamente importante strutturare bene la query.
+		In particolare, le parentesi dovrebbero essere collocate nel posto giusto. In effetti, non ha senso mettere diversi operatori logici sullo stesso livello.
+
+
+		Esercizio/Esempio
+
+			Vorrei animali nati dopo il 2009 o gatti maschi o femmine, ma nel caso delle femmine, devono nascere prima di giugno 2007.
+
+						SELECT *
+						FROM Animali
+						WHERE data_nascita > '2009-12-31'
+							OR 
+							( specie = 'gatto'
+								AND 
+								(sexe= 'M'
+									OR 
+									(sexe= 'F' AND data_nascita < '2007-06-01')
+								)
+							);
+
+
+	IN CASO DI NULL
+		Con la parola chiave WHERE non si puo ricercare tutti i NULL con la scrittura:
+
+				nomecolonna = NULL
+
+			e le query che riporto qua sotto NON FUNZIONANO COME VORREMMO!!!!
+
+								SELECT * 
+								FROM Animali 
+								WHERE nome = NULL; -- seleziona gli animali senza nome NON FUNZIONA
+
+								SELECT * 
+								FROM Animali  
+								WHERE commento <> NULL; -- seleziona animali che anno commenti esistenti  NON FUNZIONA
+
+
+		È qui che entra in gioco il nostro operatore di confronto un po 'speciale <=> che consente di riconoscere NULL .
+
+		alternativa posso usare IS NULL
+
+		oppure se lo voglio escludere IS NOT NULL
+
+
+				SELECT * 
+				FROM Animali 
+				WHERE nome <=> NULL; -- seleziona gli animali senza nome FUNZIONA!!!
+
+				--oppure
+
+				SELECT * 
+				FROM Animali 
+				WHERE nome IS NULL; -- seleziona gli animali senza nome FUNZIONA!!!
+
+				SELECT * 
+				FROM Animali  
+				WHERE commento IS NOT NULL; -- seleziona animali che anno commenti esistenti FUNZIONA!!!
+
+
+	ORDINARE I DATI
+
+		basta aggiungere | ORDER BY tri | alla tua query (dopo i criteri di selezione di WHERE se ce ne sono) e sostituire "tri" con la colonna su cui vuoi ordinare i tuoi dati ovviamente.
+
+				SELECT * 
+				FROM Animali 
+				WHERE specie='chien' 
+				ORDER BY data_nascita;  -- i cani più anziani vengono recuperati per primi, i giovani alla fine.
+
+
+
+	ORDINAMENTO CRESCENTE e DECRESCENTE
+
+		Per determinare la direzione dell'ordinamento eseguito, SQL ha due parole chiave:
+ 
+			ASC 
+				si tratta di un ordinamento ascendente che viene eseguito: 
+				dal numero più piccolo al più grande, dalla data più vecchia alla più recente,
+				e per stringhe di caratteri e testi segue il normale ordine alfabetico.
+
+			DESC
+				l'ordine è invertito: numero maggiore prima, data più recente prima 
+				e ordine anti-alfabetico per i caratteri.
+
+
+			CASO PARTICOLARE:
+				ENUM sono stringhe di caratteri, ma sono ordinati in base all'ordine in cui sono state definit.
+				esempio ENUM('a', 'd', 'c', 'b')  se si cerca di riaodinare gli elementi si seguirá lórdine interno delle parentesi.
+
+
+	ORDINAMENTO SU PIU COLONNE
+		Esempio se voglio ordinare gli animali per specie e per ogni specie ordinarli per data di nascita 
+
+			SELECT * 
+			FROM Animali 
+			ORDER BY specie, data_nascita;	--lórdine fa la differenza!!!
+
+
+	ELIMINARE RISULTATI DOPPI
+		Può succedere che MySQL ti dia lo stesso risultato più volte. Non perché MySQL faccia cose stupide, ma semplicemente perché alcune informazioni sono presenti più volte nella tabella.
+
+
+			esempio:
+
+			vuoi sapere quali specie hai nella tua fattoria. Facile, una piccola richiesta:
+
+			SELECT specie 
+			FROM Animali;
+
+			In effetti, recupererai tutte le specie che possiedi, ma se hai 500 cani,
+			recupererai 500 linee "cane"...
+			Un po'fastidioso quando noterai che lo schermo é pieno di roba D:
+
+			DISTINCT viene posizionata subito dopo SELECT ed elimina i duplicati.
+
+			SELECT DISTINCT specie 
+			FROM Animali;
+
+
+		ATTENZIONE 
+					se si lavora su piu colonne le righe per essere considerate uguali 
+					dovranno avere tutte le colonne uguali!!!
+
+
+	LIMITARE NUMERO DI RIGHE RISULTATI
+		Oltre a limitare una ricerca fornendogli criteri attraverso la clausola WHERE,
+		è possibile limitare il numero di righe recuperate con LIMIT.
+
+
+		SINTASSI
+
+			LIMIT può essere utilizzato con due parametri:
+
+				   -il numero di righe che si desidera recuperare;
+
+				   -E l'offset OFFSET , introdotto dalla parola chiave, 
+				    che indica A PARTIRE DA QUALE RIGA vengono recuperati i risultati. 
+				    Questo parametro è facoltativo. Se non è specificato, viene impostato su 0.
+
+		
+			LIMIT numeroLinee [OFFSET numRigaPartenza];
+
+		es:
+			SELECT * 
+			FROM Animali 
+			ORDER BY id 		--ordina per cosice id
+			LIMIT 6 OFFSET 0;	-- fornisce 6 righe a partire dalla riga zero 
+
+
+			SELECT * 
+			FROM Animali 
+			ORDER BY id 		--ordina per cosice id
+			LIMIT 6 OFFSET 3;	-- a partire dalla riga zero 
+
+
+			SELECT * 
+			FROM Animal 
+			ORDER BY id 		--ordina per cosice id
+			LIMIT 10;			-- fornisce 10 righe a partire dalla riga zero 
+
+
+
+
+		SINTASSI ALTERNATIVA:
+			MySQL accetta un'altra sintassi per . Non è lo standard SQL anche se idealmente,
+			si dovrebbe sempre usare la sintassi ufficiale tuttavia è ampiamente utilizzata.
+
+
+			SELECT * 
+			FROM Animali 
+			ORDER BY id 
+			LIMIT [numRigaPartenza, ]numeroLinee;
+
+
+			Come per la sintassi ufficiale, l'offset non è obbligatorio e sarà 0 per impostazione predefinita
+			Se lo specifichi, non dimenticare la virgola tra l'offset e il numero di righe desiderate.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,112 @@
+
+
+con SELECT e WHERE si possono fare ricerche anche piu complesse come:
+
+		-confronto con un valore incompleto (cerca animali il cui nome inizia con una certa lettera);
+
+		-confronto con un intervallo di valori (tra 2 e 5 ad esempio);
+
+		-confronto con un insieme di valori (confronto con 5, 6, 10 o 12, ad esempio).
+
+
+	Cosa fare quando non sappiamo se la parola che stiamo cercando è al singolare o al plurale? 
+	Oppure se cerchiamo tutte le righe il cui campo "commenti" contiene una parola particolare?
+
+	si usa LIKE !!!!
+
+
+	Esistono due caratteri jolly per LIKE
+
+			'%' 	— rappresenta qualsiasi stringa di caratteri, indipendentemente dalla sua lunghezza 
+					(inclusa una stringa di lunghezza 0).
+
+			'_' 	— rappresenta un singolo carattere.
+
+
+
+			Alcuni esempi:
+
+					'b%' 	cercherà tutte le string che iniziano con 'b'("broccoli", "bau", "b").
+
+					'b_' 	cercherà tutte le stringhe di caratteri contenenti due lettere, 
+							la prima delle quali è 'b'("ba", "bf", "b8").
+
+					'%ch%ne' cercherà tutte le stringhe contenenti 'ch' e che terminano con 'ne'
+							("chne", "chine", "spine", "le pays le plus peuplé du monde est la Chine").
+
+					'p_rl_' cercherà tutte le stringhe di caratteri che iniziano con una "p" 
+							seguita da un carattere, poi "rl" e infine terminano con un carattere 
+							("speak", "perla", "pearl").
+
+	Cosa succede se stai cercando una stringa di caratteri contenente '%' o '_' ?????
+
+			basta mettere '\' di fronte al %' o al '_' .
+
+				SELECT * 
+				FROM Animali 
+				WHERE commento LIKE '%\%%'; --cerco stringhe che contenngono '%'
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+DISTINZIONE TRA MAIUSCOLE E MINUSCOLE
+
+	Se si desidera eseguire una ricerca con distinzione tra maiuscole e minuscole, è possibile definire la stringa di ricerca come una stringa binaria, non piu come una stringa normale:
+
+
+				SELECT * 
+				FROM Animali 
+				WHERE nome LIKE '%Lu%';   --NON tiene conto di maiuscole e minuscole
+
+
+				SELECT * 
+				FROM Animal 
+				WHERE nome LIKE BINARY '%Lu%';   --case sensitive
+
+-------------------------------------------------------------------------------------------------------------------
+
+RICERCA NUMERICA 
+
+	MySQL permette anche la ricerca di numeri all'interno di colonne numeriche come ad esempio INT 
+
+		SELECT * 
+		FROM Animal 
+		WHERE id LIKE '1%';		--cerco tutte gli animali che hanno un id che inizia con 1
+			
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+RICERCA IN UN INTERVALLO 
+	
+	È possibile effettuare ricerche su un intervallo utilizzando solo gli operatori di confronto >= e <=. 
+	Ad esempio, gli animali nati tra il 5 gennaio 2008 e il 23 marzo 2009 possono essere cercati come segue:
+
+		SELECT * 
+		FROM Animali 
+		WHERE data_nascita <= '2009-03-23' 
+		    AND data_nascita >= '2008-01-05';
+
+
+	Funziona molto bene. Tuttavia, SQL ha un operatore specifico, per gli intervalli, che potrebbe salvarti dai classici errori di disattenzione (< invece di >, ad esempio) oltre a rendere la tua query più leggibile e più efficiente:
+
+			BETWEEN minimum AND maximum
+
+	La query precedente può quindi essere scritta:
+
+		SELECT * 
+		FROM Animali 
+		WHERE data_nascita BETWEEN '2008-01-05' AND '2009-03-23';
+
+	
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,49 @@
+INDICE 
+		Un indice è una struttura che include l'elenco ordinato di valori a cui si riferisce.
+		Gli indici vengono utilizzati per velocizzare le query 
+		(in particolare le query che coinvolgono più tabelle o query di ricerca) 
+		e sono essenziali per la creazione di chiavi, esterne e primarie, 
+		che garantiscono l'integrità dei dati nel database.
+
+
+COSA É UN INDICE?
+
+	Struttura di dati che include l'elenco ordinato di valori a cui si riferisce.
+
+	Quando si crea un indice su una tabella, MySQL memorizza tale indice come una particolare struttura,
+	contenente i valori delle colonne coinvolte nell'indice. 
+	Questa struttura memorizza i valori ordinati e consente l'accesso a ciascuno in modo efficiente e rapido.
+
+	Immaginiamo di voler recuperare tutte le righe il cui id è minore o uguale a 5. 
+	Senza un indice, MySQL deve passare attraverso tutte le righe una per una. 
+	D'altra parte, grazie all'indice, non appena cade sulla linea il cuiid è 6, 
+	sa che può fermarsi, poiché tutte le linee successive avranno un id maggiore o uguale a 6.
+
+
+	Da notare che la colonna ID della base dati creata nel capitolo 5 CreareUnaBaseDati funziona gia da indice
+
+	Cio non vieta di creare altri indici che organizzano la tabella diversamente!!!! 
+
+				Quanto siamo pazzerelli!!! :D
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

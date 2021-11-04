@@ -1,0 +1,53 @@
+prima di modificare i dati conviene proteggere quelli giá presenti 
+
+BACKUP DI UN DATABASE
+
+
+	MySQL ha uno strumento appositamente dedicato al backup dei dati sotto forma di file di testo:
+
+		mysqldump
+
+	Questa funzione di backup viene utilizzata dalla console. È quindi necessario essere disconnessi da MySQL per avviarlo. 
+
+		1 Se hai effettuato l'accesso, digita exit.
+
+		2 Ora sei nella console di Windows (o Mac o Linux).
+
+		3 Il modo tipico per eseguire il backup di un database consiste nel digitare il comando seguente:
+
+				mysqldump -u user -p --opt c > nomeSalvataggioBaseDati.sql
+
+
+
+						mysqldump : 
+								questo è il client per il backup dei database. 
+								Niente di speciale da segnalare.
+
+						--opt : 
+								è un'opzione di "mysqldump" cui lancia il comando con una serie di parametri
+								che fanno in modo che il comando venga eseguito molto rapidamente.
+
+						nome_base_dati : 
+								è qui che devi indicare il nome del database che vuoi salvare.
+
+						> sauvegarde.sql :
+								il segno ">" indica che daremo la destinazione di ciò che verrà generato dal comando  verso "nomeSalvataggioBaseDati.sql". 
+								Questo è il nome del file che conterrà il backup del nostro database.
+								Naturalmente puoi chiamarlo come meglio credi.
+
+
+						se non si specifica la posizione il file "nomeSalvataggioBaseDati.sql"
+						verrá generato all'interno della cartella corrente
+						(ovvero la cartella in cui ci si trovava quando ci si logga)
+=
+
+	SE SI ELIMINA ACCIDENTALMENTE IL DATABASE
+			Si noti che il comando per creare il database stesso non viene salvato.
+			Quindi, se si elimina accidentalmente il database, è necessario prima ricreare il database con :
+
+					CREATE DATABASE nome_database
+
+			quindi eseguire il comando seguente (nella console):
+
+					mysql nome_database < c:/percorso_file/.nomeSalvataggioBaseDati.sql
+

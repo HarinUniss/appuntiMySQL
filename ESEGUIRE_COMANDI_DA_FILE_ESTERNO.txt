@@ -1,0 +1,21 @@
+ESEGUIRE I COMANDI SQL CON UN FILE ESTERNO
+		ecco un terzo modo per eseguire i comandi SQL utilizzando un file esterno 
+		(oltre ai comandi SOURCE e LOAD DATA visti in precedenza). 
+
+		Puoi semplicemente, quando ti connetti al tuo database tramite la riga di comando, specificare un file contenente i tuoi comandi SQL, precedendolo con il carattere "<". 
+
+		Saranno quindi eseguiti uno per uno. 
+
+		Fare attenzione a non dimenticare di selezionare il database su cui si desidera lavorare, direttamente alla connessione o specificando 
+
+					USE nome_database; 
+
+		all'inizio del file.  
+
+
+			comandi:
+
+				USE nome_database;
+				SOURCE c:/percorso_file/.nomeSalvataggioBaseDati.sql;
+
+

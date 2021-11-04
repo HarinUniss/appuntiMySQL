@@ -1,0 +1,165 @@
+ELIMINARE E MODIFICARE DATI 
+
+prima di modificare i dati conviene proteggere quelli giá presenti 
+
+------------------------------------------------------------------------------------------------------------
+BACKUP DI UN DATABASE
+
+
+	MySQL ha uno strumento appositamente dedicato al backup dei dati sotto forma di file di testo:
+
+		mysqldump
+
+	Questa funzione di backup viene utilizzata dalla console. È quindi necessario essere disconnessi da MySQL per avviarlo. 
+
+		1 Se hai effettuato l'accesso, digita exit.
+
+		2 Ora sei nella console di Windows (o Mac o Linux).
+
+		3 Il modo tipico per eseguire il backup di un database consiste nel digitare il comando seguente:
+
+				mysqldump -u user -p --opt c > nomeSalvataggioBaseDati.sql
+
+
+
+						mysqldump : 
+								questo è il client per il backup dei database. 
+								Niente di speciale da segnalare.
+
+						--opt : 
+								è un'opzione di "mysqldump" cui lancia il comando con una serie di parametri
+								che fanno in modo che il comando venga eseguito molto rapidamente.
+
+						nome_base_dati : 
+								è qui che devi indicare il nome del database che vuoi salvare.
+
+						> sauvegarde.sql :
+								il segno ">" indica che daremo la destinazione di ciò che verrà generato dal comando  verso "nomeSalvataggioBaseDati.sql". 
+								Questo è il nome del file che conterrà il backup del nostro database.
+								Naturalmente puoi chiamarlo come meglio credi.
+
+
+						se non si specifica la posizione il file "nomeSalvataggioBaseDati.sql"
+						verrá generato all'interno della cartella corrente
+						(ovvero la cartella in cui ci si trovava quando ci si logga)
+=
+
+	SE SI ELIMINA ACCIDENTALMENTE IL DATABASE
+			Si noti che il comando per creare il database stesso non viene salvato.
+			Quindi, se si elimina accidentalmente il database, è necessario prima ricreare il database con :
+
+					CREATE DATABASE nome_database
+
+			quindi eseguire il comando seguente (nella console):
+
+					mysql nome_database < c:/percorso_file/.nomeSalvataggioBaseDati.sql
+
+-----------------------------------------------------------------------------------------------------------
+	ESEGUIRE I COMANDI SQL CON UN FILE ESTERNO
+		ecco un terzo modo per eseguire i comandi SQL utilizzando un file esterno 
+		(oltre ai comandi SOURCE e LOAD DATA visti in precedenza). 
+
+		Puoi semplicemente, quando ti connetti al tuo database tramite la riga di comando, specificare un file contenente i tuoi comandi SQL, precedendolo con il carattere "<". 
+
+		Saranno quindi eseguiti uno per uno. 
+
+		Fare attenzione a non dimenticare di selezionare il database su cui si desidera lavorare, direttamente alla connessione o specificando 
+
+					USE nome_database; 
+
+		all'inizio del file.  
+
+
+			comandi:
+
+				USE nome_database;
+				SOURCE c:/percorso_file/.nomeSalvataggioBaseDati.sql;
+
+---------------------------------------------------------------------------------------------------------
+
+ELIMINARE DATI 
+
+
+	Il comando utilizzato per eliminare i dati è DELETE. 
+	Questa operazione è irreversibile, fai molta attenzione!!!
+
+		DELETE FROM nome_tabella 
+		WHERE criteri ;
+
+	es:
+		Zulu è morto, la pace all'anima sua... Quindi lo rimuoveremo dal database.
+
+			DELETE FROM Animali 
+			WHERE nome = 'Zulu';
+
+		E questo è tutto, niente  più Zulu! :'(
+
+	ELIMINARE TUTTE LE RIGHE DI UNA TABELLA
+		Se si desidera eliminare tutte le righe di una tabella, è sufficiente non specificare i criteri con WHERE
+
+			DELETE FROM nome_tabella; 	-- elimina tutte le righe 
+
+
+----------------------------------------------------------------------------------------------------------
+
+MODIFICARE I DATI
+	I dati vengono modificati utilizzando il comando  UPDATE 
+
+	la cui sintassi è la seguente:
+
+		UPDATE nom_table 
+		SET col1 = val1 [, col2 = val2, ...] 
+		[WHERE ...];
+
+		
+	es:
+		eri convinto che questo piccolo Pataud fosse un maschio, ma, poche settimane dopo, ti rendi conto del tuo errore. 
+		Quindi devi cambiare il suo sesso, ma anche il suo nome. 
+		Ecco la query che ti permetterà di farlo:
+
+			UPDATE Animali 
+			SET sexe='F', nome='Pataude' 
+			WHERE id=21;
+
+		ATTENZIONE ho usato il criterio id perche non so se ci sono altri animali con nome Pataud
+
+	ATTENZIONE!!! se si omette WHERE con i suoi criteri si andranno a modificare tute le linee
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

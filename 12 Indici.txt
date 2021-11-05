@@ -28,24 +28,84 @@ COSA É UN INDICE?
 
 
 
+	INTERESSE DEGLI INDICI
+		Lo scopo degli indici è quello di accelerare le query che utilizzano colonne indicizzate come criteri di ricerca. 
+
+		Se sai che, nella tua applicazione, farai molte ricerche sulla colonna X,conviene aggiungere un indice su questa colonna.
+
+		Garantire l'integrità dei tuoi dati, significa garantire la qualità dei tuoi dati, assicurandoti che i tuoi dati hanno senso. 
+
+	DIFETTI
+
+		Occupano spazio nella memoria.
+
+		Rallentano le richieste di inserimento, modifica e cancellazione, poiché ogni volta è necessario aggiornare l'indice oltre alla tabella.
+
+
+	INDICE SU PIU COLONNE
+		Potrei deciderre di creare 3 indici per 3 colonne che richiamo di frequente (ad esempio id , nome , cognome)
+		ma occuperebbe troppa memoria.
+		é qui che ci conviene fare un indice che si dapporta alle 3 colonne!!!
+
+		L'indice conterrà quindi i valori delle tre colonne e sarà ordinato per 
+		cognome, poi per nome, e infine per iniziale (l'ordine delle colonne è quindi importante!).
+
+
+	STRUTTURARE GLI "INDICI DA SINISTRA" 
+
+		MySQL è in grado di sfruttare il tuo indice su (cognome, nome, nome2) per alcune altre ricerche.
+		Infatti, se rappresentiamo gli indici sotto forma di tabelle, ecco cosa darebbe per i quattro indici 
+		(cognome), (nome), (cognome, nome) e (cognome, nome, nome2).
+
+		in sostanza MySQL tiene conto dell'ordine delle colonne e in automatico puo generare degli indici multi colonna da da sinistra a destra.
+
+
+	INDICI DI COLONNE ALFANUMERICHE 
+
+		Quando si indicizza una colonna di tipo VARCHAR o CHAR (ad esempio la colonna del nome della tabella Client), è possibile scomporre l'indice come segue:
 
 
 
+    LETTERA: 1a   2a   3a   4a   5a   6a   7a   8a   9a   10a 
+
+              B    o    u    l    i    a    n 
+
+              C    a    r    a    m    o    u
+
+              D    u    p    o    n    t
+
+              D    u    p    o    n    t
+
+              F    r    a    n    c    e    s    c    o
+
+              V    a    n    d    e    n    b    u    s    h
 
 
 
+        Perché siamo interessati a questo?
+
+        	È molto semplice. Qui abbiamo solo nomi abbastanza brevi. 
+        	Ma la colonna del nome potrebbe essere di tipo VARCHAR(150) contenente titolo di un libro..
+
+        	Se mettiamo un indice su di esso, MySQL indicizzerà fino a 150 caratteri. 
+        	Tuttavia, è molto probabile che i primi 25-30 caratteri del titolo siano sufficienti per ordinarli. Nel peggiore dei casi, uno o due non saranno esattamente nel posto giusto, ma le richieste sarebbero già notevolmente accelerate.
+
+        	Sarebbe quindi piuttosto conveniente dire a MySQL: 
+        	"Indicizza questa colonna, ma basati solo sui primi x caratteri"   ed è possibile ovviamente :D
+
+        	Quando si crea l'indice nella colonna "tito_libro",sarà sufficiente indicare un numero tra parentesi: "tito_libro(25)" ad esempio.
+        	Questo numero è ovviamente il numero di caratteri (nella direzione di lettura, quindi da sinistra) da prendere in considerazione per l'indice.
 
 
 
+        Tipi BLOB e TEXT (e derivati)
+
+        	Se si inserisce un indice su una colonna di tipo BLOB o TEXT (o uno dei loro derivati), 
+        	MySQL richiede di specificare un numero di caratteri da considerare. 
+        	E per fortuna... data la lunghezza potenziale di ciò che è memorizzato in tali colonne.
 
 
 
-
-
-
-
-
-
-
-
+DIFFERENTI TIPI DI INDICE
+	
 

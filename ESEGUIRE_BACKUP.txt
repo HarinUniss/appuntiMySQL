@@ -39,7 +39,7 @@ BACKUP DI UN DATABASE
 						se non si specifica la posizione il file "nomeSalvataggioBaseDati.sql"
 						verrá generato all'interno della cartella corrente
 						(ovvero la cartella in cui ci si trovava quando ci si logga)
-=
+
 
 	SE SI ELIMINA ACCIDENTALMENTE IL DATABASE
 			Si noti che il comando per creare il database stesso non viene salvato.

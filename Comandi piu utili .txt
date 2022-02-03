@@ -1,0 +1,638 @@
+
+
+CREAR EUNA BASE DATI 
+
+	CREATE DATABASE nome_database;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ELIMINARE UNA BASE DATI 
+
+	DROP DATABASE nome_database;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+USARE UNA BASE DATI 
+
+	USE nome_database;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+USCIRE DA UNA BASE DATI 
+
+	exit;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+CREARE UNA TABELLA
+
+	CREATE TABLE [IF NOT EXISTS] Nom_table (
+		    colonne1 description_colonne1,
+		    [colonne2 description_colonne2,
+		    colonne3 description_colonne3,
+		    ...,]
+		    [PRIMARY KEY (colonna_chiave_primaria)]
+	)
+	[ENGINE=motore];
+
+
+
+
+	CREATE TABLE Animale (
+		    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+		    specie VARCHAR(40) NOT NULL,
+		    sesso CHAR(1),
+		    Datia_nascita DATETIME NOT NULL,
+		    nome VARCHAR(30),
+		    comenti TEXT,
+		    PRIMARY KEY (id)
+	)
+	ENGINE=INNODB;
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+VISUALIZZARE TABELLE PRESENTI NELLA BASE DATI 
+
+	SHOW TABLES;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+VISUALIZZARE CARATTERISTICHE DI UNA TABELLA 
+
+	DESCRIBE Nome_tabella;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ELIMINARE UNA TABELLA 
+
+	DROP TABLE Nome_tabella;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+MODIFICARE UNA TABELLA
+
+	ALTER TABLE Nome_tabella ADD ...	--permette di aggiungere qualcosa (esempio una colonna)
+
+			ALTER TABLE Nome_tabella 
+			ADD [COLUMN] nome_colonna caratteristiche_colonna;
+
+	. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+	ALTER TABLE Nome_tabella DROP ...	--permette di togliere qualcosa
+
+			ALTER TABLE Nome_tabella 
+			DROP [COLUMN] nome_colonna ;
+
+	. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+	ALTER TABLE Nome_tabella CHANGE ...	
+
+			ALTER TABLE Nome_tabella 
+			CHANGE vecchio_nome nuovo_nome nuove_caratteristiche_colonna;
+
+	. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+	ALTER TABLE Nome_tabella MODIFY ...	--permette di modificare una colonna
+
+			ALTER TABLE Nome_tabella 
+			MODIFY nome_colonna nuove_caratteristiche_colonna;
+
+
+--------------------------------------------------------------------
+
+ISERIRE DEI DATI 
+
+	
+	INSERIMENTO SENZA PRECISARE LE COLONNE (in tal caso devo rispettare l'ordine delle colonne)
+
+			INSERT INTO Nome_tabella 
+			VALUES ( 1 , 'chien', 'M', '2010-04-05 13:43:00', NULL, 'Mordille beaucoup');
+
+
+		posso anche non inserire tutti i valori o mettere NULL  nelle posizioni non compilate.
+
+		Se meto NULL in una colonna che non lo prevede , MySQL da errore a meno che non cisia l'Auto Compilazione della colonna.
+
+	 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+	INSERIMENTO PRECISANDO LE COLONNE
+
+		Nella query, scriveremo quindi esplicitamente a quale colonna diamo un valore. 
+		Ciò consentirà due cose:
+
+			-I valori non devono più essere indicati nell'ordine in cui sono state create le colonne,
+			 ma nell'ordine specificato dalla query.
+
+			-Non dobbiamo più dare un valore a ogni colonna; 
+			 non c'è bisogno di NULL quando non si ha valore da mettere.
+
+
+
+		INSERT INTO Nome_tabella (nome_colonna1, nome_colonna3, nome_colonna6) 
+		    VALUES ('tartaruga', 'F', '2009-08-03 05:12:00');
+	
+	 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+	INSERIMENTO MULTIPLO
+
+		Se si dispone di più righe da inserire, è possibile farlo in un'unica query come segue:
+
+		INSERT INTO Animal (espece, sexe, date_naissance, nom) 
+		VALUES  ('cane', 'F', '2008-12-06 05:18:00', 'Caroline'),
+        		('gatto', 'M', '2008-09-11 15:38:00', 'Bagherra'),
+        		('tartaruga', NULL, '2010-08-23 05:18:00', NULL);
+
+
+        		Naturalmente, si é poi obbligato a specificare le STESSE colonne per ogni voce!!!
+        		anche se ciò significa mettere NULL per alcuni. 
+        		Ma comunque c'é meno da scrivere!!! 
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+VERIFICARE GLI ELEMENTI PRESENTI NELLA TABELLA 
+
+	SELECT * FROM Nome_tabella;        
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+SELEZIONARE DEI DATI 
+	
+	SELECT 
+		Query che permette di selezionare un dato di una tabella o un dat appena scritto.
+
+
+		SELEZIONO UN DATO INSERITO 
+				es:		SELECT 'Hello World !';
+
+				es:		SELECT 3+2;
+
+
+		SELEZZIONARE PARTE DI UNA TABELLA
+			Per fare cio necessito della key FROM che definisce da quale struttura (solitamente una tabella) provengono i dati.
+
+
+			SELECT colonne1, colonne2, ...  	--seleziono i nomi delle colonne che voglio
+			FROM nom_table;					--indico il nome delle tabelle che voglio 
+
+
+		SELEZZIONARE TUTTE LE COLONNE DI UNA TABELLA
+
+			SELECT *
+			FROM NomeTabella;
+
+		NB. notare dal punto e virgola finale che è tutto un UNICO comando!!!
+
+	 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+	WHERE
+		consente di limitare i risultati in base ai criteri di ricerca che andrò a stabilire.
+
+			SELECT clonna2 , colonna4 
+			FROM NomeTabella 
+			WHERE comparazione ;
+
+
+			OPERATORI DI COMPARAZIONE
+
+					Operatore   Significato
+					=            uguale
+
+					<            inferiore
+
+					<=            minore o uguale
+
+					>            superiore
+
+					>=            maggiore o uguale
+
+					<> oppure !=            differente
+
+					<=>		uguale (valido anche per)NULL
+
+				es:
+
+					SELECT colonna1, colonna6
+					FROM NomeTabella 
+					WHERE data_nascita < '2008-01-01'; 
+
+					SELECT * 
+					FROM NomeTabella
+					WHERE nome <> 'mario'; 		--tutti tranne mario (povero mario ...)
+
+			. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+			COMBINAZIONI DI CARATTERI
+				
+				pe rutilizzare piu criteri sulla stessa linea utilizzremo gli OPERATORI LOGICI
+
+							Opérateur    Symbole  Signification
+
+							AND          &&       e
+
+							OR           ||       o
+
+							XOR                   o esclusivo
+
+							NOT          !        non
+
+					es:
+						Voglio selezionare animali che siano sia gatti che femmine. Uso l'operatore AND:
+
+								SELECT * 			--seleziono tutte le colonne
+								FROM Animali 		--della tabella animali 
+								WHERE specie='chat' --dove nella colonna specie ci deve essere gatto 
+								    AND sexe='F';	--e nella stessa linea il sesso deve essere F
+
+								-- alternativa 
+
+								SELECT * 			--seleziono tutte le colonne
+								FROM Animali 		--della tabella animali 
+								WHERE specie='chat' --dove nella colonna specie ci deve essere gatto 
+								    && sexe='F';	--e nella stessa linea il sesso deve essere F
+
+
+					es:
+						voglio ottenere gli animali che sono tartarughe OR pappagalli:
+
+								SELECT * 			--seleziono tutte le colonne
+								FROM Animali 		--della tabella animali 
+								WHERE specie='tortue' 
+								    OR specie='perroquet';
+
+								-- alternativa 
+
+								SELECT * 			--seleziono tutte le colonne
+								FROM Animal 		--della tabella animali 
+								WHERE specie='tortue' 	--prendo le righe dove nella colonna specie ci deve essere tartaruga
+								    || specie='perroquet';	-- e quelle dove nella colonna specie c'é pappagallo
+
+
+					es:
+						Selezione di tutti gli animali di sesso femminile tranne i cani
+
+								SELECT * 
+								FROM Animali 
+								WHERE sexe='F' 
+								    AND NOT specie='chien';
+
+								-- alternativa 
+
+								SELECT * 
+								FROM Animali 
+								WHERE sexe='F' 
+								    AND ! (specie='chien');
+
+						Le parentesi sono essenziali nel caso del ! , altrimenti si riferisce solo alle specie. Dimenticare le parentesi è come fare WHERE (NOT espece) = 'chien', il che non ha senso.
+
+
+
+					es:
+						Selezione di animali che sono maschi o pappagalli (ma non entrambi):
+
+								SELECT * 
+								FROM Animali 
+								WHERE sexe='M' 
+								    XOR espece='perroquet';
+
+		 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	 
+	LIKE
+		Cosa fare quando non sappiamo se la parola che stiamo cercando è al singolare o al plurale? 
+		Oppure se cerchiamo tutte le righe il cui campo "commenti" contiene una parola particolare?
+
+	
+		Caratteri jolly per LIKE
+
+			'%' 	— rappresenta qualsiasi stringa di caratteri,
+						indipendentemente dalla sua lunghezza 
+						(inclusa una stringa di lunghezza 0).
+
+			'_' 	— rappresenta un singolo carattere.
+
+		Alcuni esempi:
+
+				'b%' 	cercherà tutte le string che iniziano con 'b'
+							("broccoli", "bau", "b").
+
+				'b_' 	cercherà tutte le stringhe di caratteri contenenti due lettere, 
+							la prima delle quali è 'b'("ba", "bf", "b8").
+
+				'%ch%ne' cercherà tutte le stringhe contenenti 'ch' e che terminano con 'ne'
+						("chne", "chine", "spine", "le pays le plus peuplé du monde est la Chine").
+
+				'p_rl_' cercherà tutte le stringhe di caratteri che iniziano con una "p" 
+						seguita da un carattere, poi "rl" e infine terminano con un carattere 
+							("speak", "perla", "pearl").
+
+	Cosa succede se stai cercando una stringa di caratteri contenente '%' o '_' ?????
+
+			basta mettere '\' di fronte al %' o al '_' .
+
+				SELECT * 
+				FROM Animali 
+				WHERE commento LIKE '%\%%'; --cerco stringhe che contenngono '%'
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+DISTINZIONE TRA MAIUSCOLE E MINUSCOLE
+
+	Se si desidera è possibile definire la stringa di ricerca come una stringa binaria, non piu come una stringa normale:
+
+
+				SELECT * 
+				FROM Animali 
+				WHERE nome LIKE '%Lu%';   --NON tiene conto di maiuscole e minuscole
+
+
+				SELECT * 
+				FROM Animal 
+				WHERE nome LIKE BINARY '%Lu%';   --case sensitive
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+RICERCA NUMERICA 
+
+	MySQL permette anche la ricerca di numeri all'interno di colonne numeriche come ad esempio INT 
+
+		SELECT * 
+		FROM Animal 
+		WHERE id LIKE '1%';	--cerco tutte gli animali che hanno un id che inizia con 1
+			
+
+
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+RICERCA IN UN INTERVALLO 
+	
+	È possibile utilizzando solo gli operatori di confronto >= e <=. 
+
+	Ad esempio, gli animali nati tra il 5 gennaio 2008 e il 23 marzo 2009 possono essere cercati come segue:
+
+		SELECT * 
+		FROM Animali 
+		WHERE data_nascita <= '2009-03-23' 
+		    AND data_nascita >= '2008-01-05';
+
+
+	SQL ha un operatore specifico, per gli intervalli, (< invece di >, ad esempio) oltre a rendere la tua query più leggibile e più efficiente:
+
+			BETWEEN minimum AND maximum
+
+	La query precedente può quindi essere scritta:
+
+		SELECT * 
+		FROM Animali 
+		WHERE data_nascita BETWEEN '2008-01-05' AND '2009-03-23';
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+IN
+	CERCARE PIU LINEE CHE NON HANNO NULLA A CHE VEDERE TRA LORO 
+
+		Immaginiamo di voler cercare degli animali che hanno nomi diversi esempio:
+			Moka, Bilba, Tortilla, Balou, Dana, Redbul e Gingko.
+
+		potrei usare OR e concatenarte piu OR assieme cosi:
+
+			SELECT * 
+			FROM Animali 
+			WHERE nome = 'Moka' 
+			    OR nome = 'Bilba' 
+			    OR nome = 'Tortilla' 
+			    OR nome = 'Balou' 
+			    OR nome = 'Dana' 
+			    OR nome = 'Redbul' 
+			    OR nome = 'Gingko';
+
+		ma fa un po schifo come soluzione...
+
+		Fortunatamente l'operatore IN ci semplifica la vita!!!!
+		Questo operatore consente di cercare un elenco di valori. 
+
+
+			SELECT * 
+			FROM Animal 
+			WHERE nome IN ('Moka', 'Bilba', 'Tortilla', 'Balou', 'Dana', 'Redbul', 'Gingko');
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ORDER BY
+		VISUALIZZARE UN ELENCO ORDINATO RISPETTO A UNA COLONNA
+	
+			Usare alla fine del comando:
+			ASC 	per indicare che voglio l'elenco in ordine crescente
+
+			DESC 	se  voglio l'elenco in ordine decrescente
+
+		comando da fare per visualizzare gli alimenti in ordine crescente di calorie:
+
+			SELECT * FROM aliment ORDER BY calories ASC;
+
+
+		comando per visualizzare solo gli alimenti le cui calorie non superano le 90 kcal, ma in modo decrescente:
+
+			SELECT * FROM aliment WHERE calories < 90 ORDER BY calories DESC;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+COUNT
+		CONTARE IL NUMERO DI OGGETI RECUPERATI TRAMITE UNA QUERY (piu veloce di un select)
+
+			utile se non vogliamo i dati specifici ma solo il numero 
+
+
+			SELECT COUNT(*) FROM utilisateur WHERE email LIKE "%gmail.com";		--fornisce il numero di utenti con la mail gmail.com
+
+
+				COUNT(*)	conta tutti gli oggetti in tutte le colonne di una tabella
+
+				COUNT(colonne)	oggetti nella colonna
+
+				COUNT(DISTINCT colonne)	conta unicamente gli oggetti non NULL di una colonna specifica
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+FARE DELLE OPERAZIONI CON LE QIERY 
+
+		AVG  : Ci da la media della colonna sulla selezione ;
+
+		SUM  : Ci da la somma della colonna sulla selezione ;
+
+		MAX  : Ci da il massimo della colonna sulla selezione ;
+
+		MIN  : Ci da il minimo della colonna sulla selezione ;
+
+
+			es:
+				Sapere quale é l'alimento con piu zucchero 
+
+				SELECT MAX(sucre) FROM aliment;
+
+			es:
+				Sapere quale é la media di calorie degli alimenti che hanno piu di 30 Kcal
+
+				SELECT AVG(calories) FROM aliment WHERE calories >= 30;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+CREATE VIEW
+		SALVARE RICHESTE creando tabelle temporanee
+
+		es: 
+			crea la tabella temporanea "utilisateurs_gmail_vw" contenente le riche degli utilizzatori che usano una mail gmai.com
+
+				CREATE VIEW utilisateurs_gmail_vw AS SELECT * FROM utilisateur WHERE email LIKE "%gmail.com";
+
+
+			Scritto ció se voglio ri ottenere quella lista mi basterá srivere
+
+				SELECT * FROM utilisateurs_gmail_vw;
+
+
+		NB Per convenzione i nomi delle tabelle temporanee terminano con "_vw"
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+BASI DI DATI RELAZIONALI 
+
+	
+
+
+BACKUP DI UN DATABASE
+
+
+	MySQL ha uno strumento appositamente dedicato al backup dei dati sotto forma di file di testo:
+
+		mysqldump
+
+	Questa funzione di backup viene utilizzata dalla console. 
+	È quindi necessario essere disconnessi da MySQL per avviarlo. 
+
+		1 Se hai effettuato l'accesso, digita exit.
+
+		2 Ora sei nella console di Windows (o Mac o Linux).
+
+		3 Il modo tipico per eseguire il backup di un database consiste nel digitare il comando seguente:
+
+				mysqldump -u user -p --opt c > nomeSalvataggioBaseDati.sql
+
+
+
+						mysqldump : 
+								questo è il client per il backup dei database. 
+								Niente di speciale da segnalare.
+
+						--opt : 
+								è un'opzione di "mysqldump" cui lancia il comando con una serie di parametri
+								che fanno in modo che il comando venga eseguito molto rapidamente.
+
+						nome_base_dati : 
+								è qui che devi indicare il nome del database che vuoi salvare.
+
+						> sauvegarde.sql :
+								il segno ">" indica che daremo la destinazione di ciò che verrà generato dal comando  verso "nomeSalvataggioBaseDati.sql". 
+								Questo è il nome del file che conterrà il backup del nostro database.
+								Naturalmente puoi chiamarlo come meglio credi.
+
+
+						se non si specifica la posizione il file "nomeSalvataggioBaseDati.sql"
+						verrá generato all'interno della cartella corrente
+						(ovvero la cartella in cui ci si trovava quando ci si logga)
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+SE SI ELIMINA ACCIDENTALMENTE IL DATABASE
+			Si noti che il comando per creare il database stesso non viene salvato.
+			Quindi, se si elimina accidentalmente il database, è necessario prima ricreare il database con :
+
+					CREATE DATABASE nome_database
+
+			quindi eseguire il comando seguente (nella console):
+
+					mysql nome_database < c:/percorso_file/.nomeSalvataggioBaseDati.sql
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ESEGUIRE I COMANDI SQL CON UN FILE ESTERNO
+		ecco un terzo modo per eseguire i comandi SQL utilizzando un file esterno 
+		(oltre ai comandi SOURCE e LOAD DATA visti in precedenza). 
+
+		Puoi semplicemente, quando ti connetti al tuo database tramite la riga di comando, specificare un file contenente i tuoi comandi SQL, precedendolo con il carattere "<". 
+
+		Saranno quindi eseguiti uno per uno. 
+
+		Fare attenzione a non dimenticare di selezionare il database su cui si desidera lavorare, direttamente alla connessione o specificando 
+
+					USE nome_database; 
+
+		all'inizio del file.  
+
+
+			comandi:
+
+				USE nome_database;
+				SOURCE c:/percorso_file/.nomeSalvataggioBaseDati.sql;
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+ELIMINARE DATI 
+
+
+	Il comando utilizzato per eliminare i dati è DELETE. 
+	Questa operazione è irreversibile, fai molta attenzione!!!
+
+		DELETE FROM nome_tabella 
+		WHERE criteri ;
+
+	es:
+		Zulu è morto, la pace all'anima sua... Quindi lo rimuoveremo dal database.
+
+			DELETE FROM Animali 
+			WHERE nome = 'Zulu';
+
+		E questo è tutto, niente  più Zulu! :'(
+
+	ELIMINARE TUTTE LE RIGHE DI UNA TABELLA (svuotare una tabella)
+		Se si desidera eliminare tutte le righe di una tabella, è sufficiente non specificare i criteri con WHERE
+
+			DELETE FROM nome_tabella; 	-- elimina tutte le righe 
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+MODIFICARE I DATI
+
+	I dati vengono modificati utilizzando il comando  UPDATE 
+
+	la cui sintassi è la seguente:
+
+		UPDATE nom_table 
+		SET col1 = val1 [, col2 = val2, ...] 
+		[WHERE ...];
+
+		
+	es:
+		eri convinto che questo piccolo Pataud fosse un maschio, ma, poche settimane dopo, ti rendi conto del tuo errore. 
+		Quindi devi cambiare il suo sesso, ma anche il suo nome. 
+		Ecco la query che ti permetterà di farlo:
+
+			UPDATE Animali 
+			SET sexe='F', nome='Pataude' 
+			WHERE id=21;
+
+		ATTENZIONE ho usato il criterio id perche non so se ci sono altri animali con nome Pataud
+
+	ATTENZIONE!!! se si omette WHERE con i suoi criteri andranno a modificare tute le linee
+
+
+
+
+

@@ -86,7 +86,7 @@ MODIFICARE UNA TABELLA
 
 	. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-	ALTER TABLE Nome_tabella CHANGE ...	
+	ALTER TABLE Nome_tabella CHANGE ...	   --permette di rinominare una colonna e modificarla 
 
 			ALTER TABLE Nome_tabella 
 			CHANGE vecchio_nome nuovo_nome nuove_caratteristiche_colonna;
@@ -631,6 +631,79 @@ MODIFICARE I DATI
 		ATTENZIONE ho usato il criterio id perche non so se ci sono altri animali con nome Pataud
 
 	ATTENZIONE!!! se si omette WHERE con i suoi criteri andranno a modificare tute le linee
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+RELAZIONI TRA OGGETTI
+
+
+	Relazione uno a piu (one-to-many)
+
+
+		Richiedere a MySQL di  unire (JOIN) le tabelle 'utilisateur' e `langue`
+		specificando che l'id lingua e langue_id dell'utente devono essere uguali!
+
+
+
+			SELECT * FROM `utilisateur`		--Abbiamo chiesto a MySQL di selezionare tutti gli utenti.
+
+			JOIN `langue`		--Che hanno in comune le lingue.
+
+			ON `utilisateur`.`langue_id` = `langue`.`id`;	
+
+			--Specificando a MySQL di collegarli, considerando che l'ID lingua è memorizzato in ogni utente nel campo langue_id.
+
+
+	Relazione molti a molti 
+
+		Richiedere a MySQL di  unire (JOIN) le tabelle 'utilisateur' e `aliment`
+
+
+			SELECT
+
+			*
+
+			FROM
+
+			utilisateur
+
+			JOIN utilisateur_aliment ON (utilisateur.id = utilisateur_aliment.utilisateur_id)
+
+			JOIN aliment ON (aliment.id = utilisateur_aliment.aliment_id);
+
+
+
+
+			Abbiamo chiesto a MySQL di selezionare tutti gli utenti.
+				
+				SELECT * FROM `utilisateur`
+
+			A cui vogliamo unirci la tabella utilisateur_aliment.
+				
+				JOIN `utilisateur_aliment`
+
+			Dicendo a MySQL di collegarli considerando che l'ID utente è memorizzato come utilisateur_id nella tabella utilisateur_aliment.
+				
+				ON (utilisateur.id = utilisateur_aliment.utilisateur_id)
+
+			A questo .JOIN, vogliamo collegare nuovamente i dati della tavola alimentare, o un nuovo  JOIN.
+				
+				JOIN `aliment`
+
+			Per fare ciò, a MySQL viene detto che l'ID alimento è memorizzato in utilisateur_aliment come aliment_id.
+
+				ON (aliment.id = utilisateur_aliment.utilisateur_id)
+
+
+
+----------------------------------------------------------------------------------------------
+
+
+AGGIUNGERE UN CAMPO ALLA TABELLA
+	
+
+
 
 
 
